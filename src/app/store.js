@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import postsSlice from '../features/posts/postsSlice';
+import redditSlice from '../features/reddit/redditSlice';
 
 export const store = configureStore({
   reducer: {
-    // reducers for app here
+    redditSlice: redditSlice,
+    postsSlice: postsSlice,
   },
 });
