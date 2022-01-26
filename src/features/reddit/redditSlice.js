@@ -68,7 +68,9 @@ export const redditSlice = createSlice({
             // reads state of buttons in Sidebar component to determine whether each is active
             // connects with post rendering, filtering out posts belonging to inactive subreddits
         }
-    }
+    },
+    extraReducers: {},
 });
 
 export default redditSlice.reducer;
+export const { updateSubVisibility } = redditSlice.actions;
