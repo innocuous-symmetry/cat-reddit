@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Navbar from './features/navbar/Navbar';
 import Post from './features/posts/Post';
-import redditSlice from './features/reddit/redditSlice';
+import Feed from './features/posts/Feed';
 
 function App() {
   return (
@@ -14,10 +14,7 @@ function App() {
         <div className="feed">
           {/* To do: import posts from post directory */}
           {/* Map post data onto individual post cards, handle undefined values */}
-          <Post />
-          <Post />
-          <Post />
-          <Post />
+          <Feed />
           <Post />
         </div>
         
