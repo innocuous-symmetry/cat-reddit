@@ -44,7 +44,7 @@ export default function Feed() {
             }
         }
 
-        getPosts(endpoints);
+        getPosts(endpoints);        // calls this logic on the current value of endpoints
 
         return () => {
             isActive = false;
@@ -55,30 +55,26 @@ export default function Feed() {
     useEffect(() => {
         let isActive = true;
 
-        const mapPosts = () => {
+        const mapPosts = () => {            // the logic for extracting post data from the promise responses
             if (data) {
                 let allPosts = [];
                 for (let each of data) {
                     allPosts.push(each.payload);
                 }
 
-                let extractedPosts = [];
+                let extractedPosts = [];               // logic for flattening arrays and reducing complex variable to a layer of post objects
                 for (let each of allPosts) {
                     for (let indiv of each) {
                         extractedPosts.push(indiv);
                     }
                 };
 
-                extractedPosts = extractedPosts.sort((x,y) => x.created_utc > y.created_utc);     // sorts posts by sort time
+                extractedPosts = extractedPosts.sort((x,y) => x.created_utc > y.created_utc);     // sorts posts by sort time (to do: fix this)
 
-                console.log(extractedPosts);
-
-                let newFeed = [];
-
-                newFeed = extractedPosts.map((post) => {
+                let newFeed = extractedPosts.map((post) => {
                     return (
                         <Post 
-                            title={post.data.title}
+                            title={post.data.title}         // each variable passed in as props
                             author={post.data.author}
                             subreddit={post.data.subreddit}
                             ups={post.data.ups}
@@ -92,25 +88,6 @@ export default function Feed() {
                         />
                     );
                 })
-
-
-                for (let post of allPosts) {
-                    newFeed.push(
-                        <Post 
-                            title={post.title}
-                            author={post.author}
-                            subreddit={post.subreddit}
-                            ups={post.ups}
-                            comments={post.num_comments}
-                            time={post.created_utc}
-                            key={v4()}
-                            media={post.post_hint === 'image' && post.url}
-                            permalink={post.permalink}
-                            selftext={post.selftext}
-                            video={post.is_video ? post.media.reddit_video.fallback_url : null}
-                        />
-                    );
-                }
 
                 setFeed(newFeed);
             }
