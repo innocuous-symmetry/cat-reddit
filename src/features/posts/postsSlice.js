@@ -15,18 +15,6 @@ export const fetchBySub = createAsyncThunk(
     }
 );
 
-// export const fetchFromAll = createAsyncThunk(
-//     'posts/fetchAll',
-//     async(arr) => {         // arr represents here an array of subreddit endpoints
-//         try {
-//             let mappedResults = arr.map((each) => dispatch(fetchBySub(each)));
-//             Promise.all([...mappedResults]).then((repsonse) => console.log(repsonse));
-//         } catch(e) {
-//             console.log(e);
-//         }
-//     }
-// )
-
 export const postsSlice = createSlice({
     name: 'posts',
     initialState: {
