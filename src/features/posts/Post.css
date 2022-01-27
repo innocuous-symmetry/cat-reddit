@@ -14,6 +14,15 @@
     height: 15rem;
 }
 
+a {
+    font-size: 2rem;
+}
+
+img, video {
+    max-height: 45rem;
+    object-fit: contain;
+}
+
 .post-metadata {
     display: inline-flex;
     flex-direction: row;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchBySub, updatePosts, selectPosts } from "./postsSlice";
+import postsSlice, { fetchBySub, updatePosts, selectPosts } from "./postsSlice";
 import { selectAllSubs } from "../reddit/redditSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 } from "uuid";
@@ -15,6 +15,7 @@ export default function Feed() {
         const getPosts = async() => {
             let myPosts = await dispatch(fetchBySub('https://www.reddit.com/r/cats.json'));
             myPosts = myPosts.payload;
+            console.log(myPosts);
 
             if (typeof myPosts === 'object' && isActive) {
                 let newFeed = [];
@@ -29,6 +30,9 @@ export default function Feed() {
                             time={post.data.created_utc}
                             id={v4()}
                             media={post.data.post_hint === 'image' && post.data.url}
+                            permalink={post.data.permalink}
+                            selftext={post.data.selftext}
+                            video={post.data.is_video ? post.data.media.reddit_video.fallback_url : null}
                         />
                     );
                 }
@@ -43,13 +47,9 @@ export default function Feed() {
 
     }, [dispatch])
 
-    useEffect(() => {
-        console.log(feed);
-    }, [feed])
-
     return (
         <>
-        {feed}
+        {feed ? feed : <h1>Loading cats for you...</h1>}
         </>
     );
 }

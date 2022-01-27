@@ -8,14 +8,12 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <p>Stuff</p>
       <div className="content-container">
 
         <div className="feed">
           {/* To do: import posts from post directory */}
           {/* Map post data onto individual post cards, handle undefined values */}
           <Feed />
-          <Post />
         </div>
         
         <div className="about-the-site">
