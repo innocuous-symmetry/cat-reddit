@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './Post.css';
 
-export default function Post({title,author,subreddit,ups,comments,time,id,media,permalink,selftext,video}) {
+export default function Post({title,author,subreddit,ups,comments,time,key,media,permalink,selftext,video}) {
     const limit = 300;
     const [body, setBody] = useState(selftext);
     

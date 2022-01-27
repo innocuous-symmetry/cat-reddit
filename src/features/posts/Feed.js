@@ -28,7 +28,7 @@ export default function Feed() {
                             ups={post.data.ups}
                             comments={post.data.num_comments}
                             time={post.data.created_utc}
-                            id={v4()}
+                            key={v4()}
                             media={post.data.post_hint === 'image' && post.data.url}
                             permalink={post.data.permalink}
                             selftext={post.data.selftext}
