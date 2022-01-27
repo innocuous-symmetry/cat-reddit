@@ -15,6 +15,25 @@ export const fetchBySub = createAsyncThunk(
     }
 );
 
+export const fetchFromAll = createAsyncThunk(
+    'posts/fetchAll',
+    async(arr) => {         // arr represents here an array of subreddit endpoints
+        try {
+            let myPromises = [];
+            for (let subreddit in arr) {
+                myPromises.push(new Promise(fetchBySub(subreddit)));
+            }
+            Promise.all([
+                ...myPromises
+            ]).then((response) => {
+                return response;
+            });
+        } catch(e) {
+            console.log(e);
+        }
+    }
+)
+
 export const postsSlice = createSlice({
     name: 'posts',
     initialState: {
@@ -53,3 +72,4 @@ export default postsSlice.reducer;
 export const selectPosts = state => state.postsSlice.posts;
 export const { filterPosts, updatePosts } = postsSlice.actions;
 // exports also includes fetchBySub (takes argument of a sub)
+// exports also includes fetchFromAll (takes argument of an array of subs)

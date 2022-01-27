@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchBySub } from "./postsSlice";
+import { fetchBySub, fetchFromAll } from "./postsSlice";
 import { selectAllSubs } from "../reddit/redditSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 } from "uuid";
@@ -12,12 +12,26 @@ export default function Feed() {
     
     const subs = useSelector(selectAllSubs);                    // Selects subreddits from redditSlice
     const subArray = Object.values(subs);                       // Places the values within an array
+
+    useEffect(() => {
+        const prepareData = () => {
+            let myEndpoints = [];
+            for (let sub of subArray) {
+                myEndpoints.push(sub.access);
+            }
+            setEndpoints(myEndpoints);
+        }
+
+        if (subArray) {
+            prepareData();
+        }
+    }, [setEndpoints]);
     
     useEffect(() => {
         let isActive = true;
 
-        const getPosts = async(subreddit) => {
-            let myPosts = await dispatch(fetchBySub(subreddit));
+        const getPosts = async() => {
+            let myPosts = await dispatch(fetchBySub('https://www.reddit.com/r/cats.json'));
             myPosts = myPosts.payload;                                  // sets myPosts to be the array of post objects fetched from the subreddit argument
 
             if (typeof myPosts === 'object' && isActive) {
@@ -43,7 +57,7 @@ export default function Feed() {
             }
         };
         
-        getPosts('https://www.reddit.com/r/cats.json');
+        getPosts();
 
         return () => {
             isActive = false;
