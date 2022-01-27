@@ -1,0 +1,25 @@
+.search-inactive {
+    display: none;
+}
+
+.search-active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 7rem;
+    right: 17rem;
+    min-height: 25rem;
+    padding: 1.5rem;
+    background-color: grey;
+}
+
+.individual-sub {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0.8rem 0;
+}
+
+.search-sub-input {
+    margin-top: 2rem;
+}

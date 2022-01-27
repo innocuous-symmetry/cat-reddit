@@ -5,7 +5,7 @@ const urlBase = 'https://www.reddit.com/';
 export const redditSlice = createSlice({
     name: 'redditSlice',
     initialState: {
-        subreddits: {
+        subreddits: {                                   // the initialized list of subreddits provided with the app
             'r/cats': {
                 name: 'r/cats',
                 access: `${urlBase}r/cats.json`,
