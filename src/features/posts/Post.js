@@ -1,17 +1,17 @@
 import React from "react";
 import './Post.css';
 
-export default function Post({props}) {
+export default function Post({title,author,subreddit,ups,comments,time,id,media}) {
     
     return (
         <>
         <div className="post-body">
-            <h1 className="title">Post title</h1>
-            <div className="image-placeholder"></div>
+            <h1 className="title">{title ? title : 'title'}</h1>
+            <img alt={title} src={media} />
             <div className="post-metadata">
-                <p className="user">u/username</p>
-                <p className="time-posted">posted at midnight</p>
-                <p className="num-comments">a million comments</p>
+                <p className="user">{author ? author : 'u/username'}</p>
+                <p className="time-posted">{time ? time : ''}</p>
+                <p className="num-comments">{comments ? comments : 'comments'}</p>
             </div>
         </div>
         </>

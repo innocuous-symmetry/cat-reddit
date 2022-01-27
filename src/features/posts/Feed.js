@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { fetchBySub, updatePosts, selectPosts } from "./postsSlice";
 import { selectAllSubs } from "../reddit/redditSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,31 +8,18 @@ import Post from "./Post";
 export default function Feed() {
     const [feed, setFeed] = useState(null);
     const dispatch = useDispatch();
-    const allSubs = useSelector(selectAllSubs);
     
-    const doTheThing = async() => {
-        try {
-            let myPromises = [];
-            for (let sub in allSubs) {
-                myPromises.push(dispatch(fetchBySub(sub)));
-            }
-            let response = await Promise.all([...myPromises]).then((response) => dispatch(updatePosts(response)));
-            console.log(response);
-        } catch(e) {
-            console.log(e);
-        }
-    }
+    useEffect(() => {
+        let isActive = true;
 
-    doTheThing();
+        const getPosts = async() => {
+            let myPosts = await dispatch(fetchBySub('https://www.reddit.com/r/cats.json'));
+            myPosts = myPosts.payload;
 
-    const allPosts = useSelector(selectPosts);
-
-    const handlePosts = () => {
-        if (allPosts) {
-            try {
-                allPosts.forEach((post) => {
-                    setFeed((prev) => [
-                        ...prev,
+            if (typeof myPosts === 'object' && isActive) {
+                let newFeed = [];
+                for (let post of myPosts) {
+                    newFeed.push(
                         <Post 
                             title={post.data.title}
                             author={post.data.author}
@@ -43,19 +30,26 @@ export default function Feed() {
                             id={v4()}
                             media={post.data.post_hint === 'image' && post.data.url}
                         />
-                    ])
-                })
-            } catch(e) {
-                console.log(e);
+                    );
+                }
+                setFeed(newFeed);
             }
-        }
-    }
+        };
+        getPosts();
 
-    handlePosts();
+        return () => {
+            isActive = false;
+        }
+
+    }, [dispatch])
+
+    useEffect(() => {
+        console.log(feed);
+    }, [feed])
 
     return (
-        <div className="all-posts">
-            {feed}
-        </div>
+        <>
+        {feed}
+        </>
     );
 }
