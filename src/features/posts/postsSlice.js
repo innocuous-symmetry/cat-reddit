@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchBySub = createAsyncThunk(
-    'reddit/fetchBySub',
+    'posts/fetchBySub',
     async(subreddit) => {    // expects an argument corresponding to the url, in json format, of a given subreddit
         try {
             const myRequest = new Request(subreddit);   // initializes request
@@ -25,7 +25,10 @@ export const postsSlice = createSlice({
     reducers: {
         filterPosts(state,action) {             // Expects action.payload to be the searchterm imported from the state of searchBar
             state.posts.filter(post => (post.data.title !== action.payload) && (post.data.selftext !== action.payload));
-        }
+        },
+        updatePosts(state,action) {
+            state.posts = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchBySub.pending, (state,action) => {
@@ -47,4 +50,6 @@ export const postsSlice = createSlice({
 });
 
 export default postsSlice.reducer;
-export const { filterPosts } = postsSlice.actions;
+export const selectPosts = state => state.postsSlice.posts;
+export const { filterPosts, updatePosts } = postsSlice.actions;
+// exports also includes fetchBySub (takes argument of a sub)

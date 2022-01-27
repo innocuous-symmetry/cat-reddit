@@ -1,0 +1,30 @@
+.post-body {
+    display: inline-flex;
+    flex-direction: column;
+    width: 75%;
+    padding: 2rem;
+    border: 1px solid black;
+    margin: 3rem 0;
+}
+
+.image-placeholder {
+    display: inline-flex;
+    background-color: grey;
+    width: 30%;
+    height: 15rem;
+}
+
+a {
+    font-size: 2rem;
+}
+
+img, video {
+    max-height: 45rem;
+    object-fit: contain;
+}
+
+.post-metadata {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
