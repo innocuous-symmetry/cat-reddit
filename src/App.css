@@ -18,3 +18,21 @@
 .navbar > * {
   padding: 0 2rem;
 }
+
+.content-container {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.feed {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90vw;
+}
+
+.about-the-app {
+  display: hidden;
+  flex-direction: column;
+  align-items: center;
+}
