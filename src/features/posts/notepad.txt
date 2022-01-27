@@ -1,9 +1,0 @@
-bitrate_kbps: 1200
-dash_url: "https://v.redd.it/5vx109l7x8e81/DASHPlaylist.mpd?a=1645903634%2CZThiNjM5ZTc5MmQ3ZmIxYzg4Y2YzYzc2MDk2MjgzNzU0N2RlOTZjMzhmNWFhN2VjNDI2OWZmNWI0MDY1NDQxOA%3D%3D&amp;v=1&amp;f=hd"
-duration: 23
-fallback_url: "https://v.redd.it/5vx109l7x8e81/DASH_480.mp4?source=fallback"
-height: 480
-hls_url: "https://v.redd.it/5vx109l7x8e81/HLSPlaylist.m3u8?a=1645903634%2COWI5Nzc2MzM0ZTExNTVlMWZiODBhMGJiMjMxYjU4NDk3ZDcwMTEzOGEyN2M4MDA3MmE0YWFlNzMzOTg0MjIzNw%3D%3D&amp;v=1&amp;f=hd"
-is_gif: false
-scrubber_media_url: "https://v.redd.it/5vx109l7x8e81/DASH_96.mp4"
-transcoding_status: "completed"

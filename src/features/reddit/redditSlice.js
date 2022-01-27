@@ -73,5 +73,5 @@ export const redditSlice = createSlice({
 });
 
 export default redditSlice.reducer;
-export const selectAllSubs = state => state.subreddits;
+export const selectAllSubs = state => state.redditSlice.subreddits;
 export const { updateSubVisibility } = redditSlice.actions;

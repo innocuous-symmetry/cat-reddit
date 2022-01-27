@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchBySub = createAsyncThunk(
-    'reddit/fetchBySub',
+    'posts/fetchBySub',
     async(subreddit) => {    // expects an argument corresponding to the url, in json format, of a given subreddit
         try {
             const myRequest = new Request(subreddit);   // initializes request
@@ -50,6 +50,6 @@ export const postsSlice = createSlice({
 });
 
 export default postsSlice.reducer;
-export const selectPosts = state => state.posts;
+export const selectPosts = state => state.postsSlice.posts;
 export const { filterPosts, updatePosts } = postsSlice.actions;
 // exports also includes fetchBySub (takes argument of a sub)
