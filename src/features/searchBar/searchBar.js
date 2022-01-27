@@ -9,16 +9,10 @@ export default function SearchBar() {
     }
 
     useEffect(() => {
-        let isSearching = true;
-        
         if (term) {
             // dispatch an action which filters content by {term}
         } else {
             return;
-        }
-
-        return () => {
-            isSearching = false;
         }
     }, [term])
 
