@@ -4,18 +4,20 @@ import { selectAllSubs } from "../reddit/redditSlice";
 import './Sidebar.css';
 
 export default function Sidebar({isCollapsed}) {
+
     const allSubs = useSelector(selectAllSubs);
     let arrayOfSubs = Object.keys(allSubs);
+
     const [subs, setSubs] = useState(arrayOfSubs);
     const [searchSubs, setSearchSubs] = useState('');
 
-    const searchWindowStyle = useRef('search-inactive');
+    const searchWindowStyle = useRef('search-inactive');     // this ref allows us to access and modify the class of the search window container from another part of the render function
 
     const handleChange = (e) => {
         e.preventDefault();
-        if (e.target.value) {
-            searchWindowStyle.current = 'search-active';
-            setSearchSubs(e.target.value);
+        if (e.target.value) {                                       // this logic locally stores the search term in searchSubs,
+            searchWindowStyle.current = 'search-active';            // and will dispatch a search action from the reddit slice
+            setSearchSubs(e.target.value);                          // based on the provided term
         } else if (e.target.value === '') {
             searchWindowStyle.current = 'search-inactive';
             setSearchSubs('');
@@ -24,12 +26,12 @@ export default function Sidebar({isCollapsed}) {
 
     return (
         <>
-        <div className={isCollapsed ? 'sidebar-hidden' : 'sidebar'}>
+        <div className={isCollapsed ? 'sidebar-hidden' : 'sidebar'}>  {/* Is collapsed is passed from the parent component, and is mutable within the navbar */}
             {
-                subs.map((sub) => {
+                subs.map((sub) => {             // Maps each sub to its own line within the sidebar, along with a button that toggles its "isSelected" property
                     return (
                         <div className="individual-sub">
-                            <button className="toggle-sub-active">X</button>
+                            <button className="toggle-sub-active">X</button>    {/* This button will dispatch an action to change the state of this specific subreddit */}
                             <p>{sub}</p>
                         </div>
                     )

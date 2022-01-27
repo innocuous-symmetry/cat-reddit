@@ -11,8 +11,6 @@ function App() {
       <div className="content-container">
 
         <div className="feed">
-          {/* To do: import posts from post directory */}
-          {/* Map post data onto individual post cards, handle undefined values */}
           <Feed />
         </div>
         
