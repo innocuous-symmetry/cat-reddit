@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import postsSlice, { fetchBySub, updatePosts, selectPosts } from "./postsSlice";
+import { fetchBySub } from "./postsSlice";
 import { selectAllSubs } from "../reddit/redditSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 } from "uuid";
@@ -8,6 +8,8 @@ import Post from "./Post";
 export default function Feed() {
     const [feed, setFeed] = useState(null);
     const dispatch = useDispatch();
+
+    const subs = useSelector(selectAllSubs);
     
     useEffect(() => {
         let isActive = true;

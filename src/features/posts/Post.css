@@ -28,3 +28,7 @@ img, video {
     flex-direction: row;
     justify-content: space-between;
 }
+
+.post-text {
+    font-size: 1.2rem;
+}

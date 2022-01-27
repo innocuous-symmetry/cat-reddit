@@ -7,7 +7,7 @@ export const fetchBySub = createAsyncThunk(
             const myRequest = new Request(subreddit);   // initializes request
             let response = await fetch(myRequest);
             let json = await response.json();
-            let postsArray = json.data.children;        // unpacks individual post objects from the subreddit JSON file, as an array
+            let postsArray = json.data.children;        // unpacks individual post objects from the subreddit JSON response, as an array
             return postsArray;
         } catch(e) {
             console.log(e);

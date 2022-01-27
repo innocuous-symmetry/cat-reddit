@@ -11,15 +11,23 @@ export default function Post({title,author,subreddit,ups,comments,time,key,media
         } else {
             return;
         }
-    })
+    }, [setBody, selftext]);
+
+    const handleHover = () => {
+        setBody(selftext);
+    }
+
+    const handleMouseOut = () => {
+        setBody(selftext.substring(0,limit) + '...');
+    }
     
     return (
         <>
-        <div className="post-body">
+        <div className="post-body" onMouseOver={handleHover} onMouseOut={handleMouseOut}>
             <a className="title" href={`https://reddit.com${permalink}`}>{title ? title : 'title'}</a>
             {media ? <img alt={title} src={media} /> : ''}
             {video ? <video controls type="video/mp4" src={video}></video> : ''}
-            <p>{body}</p>
+            <p className="post-text">{body}</p>
             <div className="post-metadata">
                 <p className="user">{author ? 'u/' + author : 'u/username'}</p>
                 <p className="time-posted">{time ? time : ''}</p>
