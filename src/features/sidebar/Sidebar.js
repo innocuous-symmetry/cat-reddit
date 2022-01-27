@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectAllSubs } from "../reddit/redditSlice";
+import './Sidebar.css';
 
 export default function Sidebar({isCollapsed}) {
     const allSubs = useSelector(selectAllSubs);
@@ -8,14 +9,21 @@ export default function Sidebar({isCollapsed}) {
     const [subs, setSubs] = useState(arrayOfSubs);
     const [searchSubs, setSearchSubs] = useState('');
 
+    const searchWindowStyle = useRef('search-inactive');
+
     const handleChange = (e) => {
         e.preventDefault();
         if (e.target.value) {
+            searchWindowStyle.current = 'search-active';
             setSearchSubs(e.target.value);
+        } else if (e.target.value === '') {
+            searchWindowStyle.current = 'search-inactive';
+            setSearchSubs('');
         }
     }
 
     return (
+        <>
         <div className={isCollapsed ? 'sidebar-hidden' : 'sidebar'}>
             {
                 subs.map((sub) => {
@@ -27,7 +35,12 @@ export default function Sidebar({isCollapsed}) {
                     )
                 })
             }
-            <input type="text" onChange={()=>{}} placeholder="Search Subs to Add"></input>
+            <input className="search-sub-input" type="text" onChange={handleChange} placeholder="Search Subs to Add"></input>
         </div>
+        <div className={searchWindowStyle.current}>
+            <h2>Search Results for: {searchSubs}</h2>
+            <p>(results here)</p>
+        </div>
+        </>
     );
 }
