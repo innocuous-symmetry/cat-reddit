@@ -34,16 +34,31 @@ export default function Post({title,author,subreddit,ups,comments,time,key,media
     return (
         <>
         <div className="post-body">
-            <a className="title" href={`https://reddit.com${permalink}`}>{title ? title       : '[untitled]'}</a>
-            {media ?     <img alt={title} src={media} />                                      : ''}
-            {video ?     <video controls type="video/mp4" src={video}></video>                : ''}
-            {body ?      <p onMouseover={handleHover} onMouseOut={handleMouseOut}>{body}</p>  : ''}
+
+            {title ?
+                <a className="title" href={`https://reddit.com${permalink}`}>{title}</a>
+            : <p>[untitled]</p>}
+
+            {media ? <img alt={title} src={media} /> : ''}
+
+            {video ? 
+                <video controls type="video/mp4" src={video}></video>
+            : ''}
+
+            {body ?
+                <p onMouseover={handleHover} onMouseOut={handleMouseOut}>{body}</p>
+            : ''}
+
             <div className="post-metadata">
-                <a href={`https://www.reddit.com${permalink}`}>{subreddit ? 'r/' + subreddit  : ''}</a>
+                <a href={`https://www.reddit.com${permalink}`}>
+                    {subreddit ? 'r/' + subreddit  : ''}
+                </a>
+                
                 <p className="user">{author ? 'u/' + author : 'u/username'}</p>
                 <p className="time-posted">posted at {time ? (localTime + ' on ' + localDate) : '...?'}</p>
                 <p className="num-comments">{comments ? comments : 'no'} comments</p>
             </div>
+            
         </div>
         </>
     );
