@@ -53,4 +53,3 @@ export default postsSlice.reducer;
 export const selectPosts = state => state.postsSlice.posts;
 export const { filterPosts, updatePosts } = postsSlice.actions;
 // exports also includes fetchBySub (takes argument of a sub)
-// exports also includes fetchFromAll (takes argument of an array of subs)

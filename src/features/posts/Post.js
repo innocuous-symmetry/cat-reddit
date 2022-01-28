@@ -46,7 +46,7 @@ export default function Post({title,author,subreddit,ups,comments,time,key,media
             : ''}
 
             {body ?
-                <p onMouseover={handleHover} onMouseOut={handleMouseOut}>{body}</p>
+                <p onMouseOver={handleHover} onMouseOut={handleMouseOut}>{body}</p>
             : ''}
 
             <div className="post-metadata">
@@ -58,7 +58,7 @@ export default function Post({title,author,subreddit,ups,comments,time,key,media
                 <p className="time-posted">posted at {time ? (localTime + ' on ' + localDate) : '...?'}</p>
                 <p className="num-comments">{comments ? comments : 'no'} comments</p>
             </div>
-            
+
         </div>
         </>
     );

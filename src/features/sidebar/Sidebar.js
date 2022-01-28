@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectAllSubs } from "../reddit/redditSlice";
+import SidebarItem from "./SidebarItem";
 import './Sidebar.css';
 
 export default function Sidebar({isCollapsed}) {
@@ -11,7 +12,6 @@ export default function Sidebar({isCollapsed}) {
 
     const [subs, setSubs] = useState(arrayOfSubs);
     const [searchSubs, setSearchSubs] = useState('');
-    const [selected, setSelected] = useState('none selected');
 
     const searchWindowStyle = useRef('search-inactive');     // this ref allows us to access and modify the class of the search window container from another part of the render function
 
@@ -27,8 +27,7 @@ export default function Sidebar({isCollapsed}) {
     }
 
     const handleClick = (e) => {
-        let selectedSub = e.target.id;
-        setSelected(selectedSub);
+
     }
 
     return (
@@ -37,14 +36,11 @@ export default function Sidebar({isCollapsed}) {
             {
                 subs.map((sub) => {             // Maps each sub to its own line within the sidebar, along with a button that toggles its "isSelected" property
                     return (
-                        <div className="individual-sub">
-                            <input type="checkbox" id={sub} htmlFor={sub} onChange={()=>{}} checked></input>
-                            <label htmlFor={sub}>{sub}</label>
-                        </div>
+                        <SidebarItem sub={sub} isChecked={true}/>
                     )
                 })
             }
-            <input className="search-sub-input" type="text" onChange={handleClick} placeholder="Search Subs to Add"></input>
+            <input className="search-sub-input" type="text" onChange={handleChange} placeholder="Search Subs to Add"></input>
         </div>
         <div className={searchWindowStyle.current}>
             <h2>Search Results for: {searchSubs}</h2>
