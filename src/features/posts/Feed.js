@@ -106,13 +106,15 @@ export default function Feed() {
 
         }
 
-        mapPosts();
+        if (isActive) {
+            mapPosts();
+        }
 
         return () => {
             isActive = false;
         }
 
-    }, [data, setFeed])
+    }, [data, setFeed]);
 
     return (
         <>
