@@ -69,9 +69,21 @@ export default function Feed() {
                     }
                 };
 
-                extractedPosts = extractedPosts.sort((x,y) => x.created_utc > y.created_utc);     // sorts posts by sort time (to do: fix this)
+                console.log(extractedPosts);
 
-                let newFeed = extractedPosts.map((post) => {
+                const comparePosts = (a,b) => {
+                    if (a.data.created_utc > b.data.created_utc) {
+                        return -1;
+                    } else if (a.data.created_utc < b.data.created_utc) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }
+
+                let sortedPosts = extractedPosts.sort(comparePosts);
+
+                let newFeed = sortedPosts.map((post) => {
                     return (
                         <Post 
                             title={post.data.title}         // each variable passed in as props
