@@ -5,7 +5,7 @@ export default function Post({title,author,subreddit,ups,comments,time,key,media
     const limit = 300;
     const [body, setBody] = useState(selftext);
 
-    const postDate = new Date(time * 1000);
+    const postDate = new Date(time * 1000);                 // handles conversion from unix timestamp to local time and date strings
     const localTime = postDate.toLocaleTimeString();
     const localDate = postDate.toLocaleDateString();
     
@@ -48,6 +48,3 @@ export default function Post({title,author,subreddit,ups,comments,time,key,media
         </>
     );
 }
-
-// 1643381811730
-// 1643381153
