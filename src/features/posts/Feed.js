@@ -69,9 +69,7 @@ export default function Feed() {
                     }
                 };
 
-                console.log(extractedPosts);
-
-                const comparePosts = (a,b) => {
+                const comparePosts = (a,b) => {                                 // sorting function: compares time posted within each object in array
                     if (a.data.created_utc > b.data.created_utc) {
                         return -1;
                     } else if (a.data.created_utc < b.data.created_utc) {
@@ -81,7 +79,7 @@ export default function Feed() {
                     }
                 }
 
-                let sortedPosts = extractedPosts.sort(comparePosts);
+                let sortedPosts = extractedPosts.sort(comparePosts);        // implements sorting function
 
                 let newFeed = sortedPosts.map((post) => {
                     return (
