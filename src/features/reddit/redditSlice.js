@@ -64,9 +64,8 @@ export const redditSlice = createSlice({
         },
     },
     reducers: {
-        updateSubVisibility(state,action) {
-            // reads state of buttons in Sidebar component to determine whether each is active
-            // connects with post rendering, filtering out posts belonging to inactive subreddits
+        updateSubVisibility(state,action) {             // receives a subreddit name as action.payload
+            state.subreddits[action.payload].isSelected = !state.subreddits[action.payload].isSelected;
         }
     },
     extraReducers: {},
@@ -74,4 +73,15 @@ export const redditSlice = createSlice({
 
 export default redditSlice.reducer;
 export const selectAllSubs = state => state.redditSlice.subreddits;
+export const selectActiveSubs = state => {
+    let activeSubs = [];
+    for (let it in state.redditSlice.subreddits) {
+        if (it.isSelected) {
+            activeSubs.push(it);
+        } else {
+            continue;
+        }
+    }
+    return activeSubs;
+}
 export const { updateSubVisibility } = redditSlice.actions;

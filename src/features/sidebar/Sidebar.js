@@ -1,9 +1,11 @@
 import React, { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectAllSubs } from "../reddit/redditSlice";
+import SidebarItem from "./SidebarItem";
 import './Sidebar.css';
 
 export default function Sidebar({isCollapsed}) {
+    const dispatch = useDispatch();
 
     const allSubs = useSelector(selectAllSubs);
     let arrayOfSubs = Object.keys(allSubs);
@@ -24,16 +26,17 @@ export default function Sidebar({isCollapsed}) {
         }
     }
 
+    const handleClick = (e) => {
+
+    }
+
     return (
         <>
         <div className={isCollapsed ? 'sidebar-hidden' : 'sidebar'}>  {/* Is collapsed is passed from the parent component, and is mutable within the navbar */}
             {
                 subs.map((sub) => {             // Maps each sub to its own line within the sidebar, along with a button that toggles its "isSelected" property
                     return (
-                        <div className="individual-sub">
-                            <button className="toggle-sub-active">X</button>    {/* This button will dispatch an action to change the state of this specific subreddit */}
-                            <p>{sub}</p>
-                        </div>
+                        <SidebarItem sub={sub} isChecked={true}/>
                     )
                 })
             }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { fetchBySub } from "./postsSlice";
 import { selectAllSubs } from "../reddit/redditSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { updatePosts } from "./postsSlice";
 import { v4 } from "uuid";
 import Post from "./Post";
 
@@ -28,7 +29,7 @@ export default function Feed() {
         if (subArray) {
             prepareData();
         }
-    }, [setEndpoints]);
+    }, [setEndpoints, subs]);
 
     
     
@@ -69,9 +70,21 @@ export default function Feed() {
                     }
                 };
 
-                extractedPosts = extractedPosts.sort((x,y) => x.created_utc > y.created_utc);     // sorts posts by sort time (to do: fix this)
+                const comparePosts = (a,b) => {                                 // sorting function: compares time posted within each object in array
+                    if (a.data.created_utc > b.data.created_utc) {
+                        return -1;
+                    } else if (a.data.created_utc < b.data.created_utc) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }
 
-                let newFeed = extractedPosts.map((post) => {
+                let sortedPosts = extractedPosts.sort(comparePosts);        // implements sorting function
+
+                console.log(sortedPosts);
+
+                let newFeed = sortedPosts.map((post) => {
                     return (
                         <Post 
                             title={post.data.title}         // each variable passed in as props
@@ -81,10 +94,10 @@ export default function Feed() {
                             comments={post.data.num_comments}
                             time={post.data.created_utc}
                             key={v4()}
-                            media={post.data.post_hint === 'image' && post.url}
+                            media={post.data.post_hint === 'image' && post.data.url}
                             permalink={post.data.permalink}
                             selftext={post.data.selftext}
-                            video={post.data.is_video ? post.data.media.reddit_video.fallback_url : null}
+                            video={post.data.is_video ? post.data.media.reddit_video.fallback_url : null}       // to do: handle media edge cases, especially video
                         />
                     );
                 })
@@ -94,13 +107,15 @@ export default function Feed() {
 
         }
 
-        mapPosts();
+        if (isActive) {
+            mapPosts();
+        }
 
         return () => {
             isActive = false;
         }
 
-    }, [data, setFeed])
+    }, [data, setFeed]);
 
     return (
         <>

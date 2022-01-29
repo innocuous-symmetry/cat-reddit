@@ -14,7 +14,7 @@
     height: 15rem;
 }
 
-a {
+.title {
     font-size: 2rem;
 }
 
@@ -27,6 +27,7 @@ img, video {
     display: inline-flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: baseline;
 }
 
 .post-text {
