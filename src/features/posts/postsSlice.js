@@ -15,6 +15,17 @@ export const fetchBySub = createAsyncThunk(
     }
 );
 
+export const fetchComments = createAsyncThunk(
+    'posts/fetchComments',
+    async(permalink) => {
+        try {
+            // stuff
+        } catch(e) {
+            console.log(e);
+        }
+    }
+)
+
 export const postsSlice = createSlice({
     name: 'posts',
     initialState: {
