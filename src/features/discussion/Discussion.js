@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchComments } from '../posts/postsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { fetchComments, isPending } from '../posts/postsSlice';
 
 export default function Discussion({permalink, isVisible}) {
     const [thread, setThread] = useState(null);
     const [data, setData] = useState(null);
     const dispatch = useDispatch();
+
+    const isLoading = useSelector(isPending);
 
     const formattedLink = permalink.substring(0,(permalink.length-1));
 
@@ -13,7 +16,9 @@ export default function Discussion({permalink, isVisible}) {
         let isActive = true;
         if (isActive) {
             if (isVisible === 'hide ') {
-                setData(dispatch(fetchComments(formattedLink)));
+                dispatch(fetchComments(formattedLink))
+                .then(unwrapResult)
+                .then((result) => setData(result));
             }
         }
         return () => {
@@ -23,7 +28,23 @@ export default function Discussion({permalink, isVisible}) {
 
     useEffect(() => {
         if (data) {
-            console.log(data);
+            let commentData = data[1];
+            console.log(commentData);
+
+            let commentArray = commentData.data.children;
+            console.log(commentArray);
+
+            let toExport = [];
+            for (let comment of commentArray) {
+                toExport.push(
+                    <>
+                    <p>{'u/' + comment.data.author}</p>
+                    <p>{comment.data.body}</p>
+                    </>
+                );
+            }
+
+            setThread(toExport);
         }
     }, [data, thread]);
 
