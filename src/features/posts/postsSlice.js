@@ -19,11 +19,10 @@ export const fetchComments = createAsyncThunk(
     'posts/fetchComments',
     async(permalink) => {
         try {
-            const myRequest = new Request(`${permalink}.json`);
+            const myRequest = new Request(`https://www.reddit.com${permalink}.json`);
             let response = await fetch(myRequest);
-            let json = await response.json();
-            let postData = json.data.children;
-            return postData;
+            let postData = await response.json();                   // returns an array of two objects, the first containing data about
+            return postData;                                        // the post, the second containing data about the discussion thread
         } catch(e) {
             console.log(e);
         }
@@ -34,6 +33,7 @@ export const postsSlice = createSlice({
     name: 'posts',
     initialState: {
         posts: [],
+        activeComments: [],
         requestsPending: false,
         requestDenied: false,
     },
@@ -60,6 +60,20 @@ export const postsSlice = createSlice({
             for (let sub in action.payload) {       // iterates over postsArray to avoid
                 state.posts.push(sub);              // nesting arrays within the state's posts
             }
+        })
+
+        builder.addCase(fetchComments.pending, (state,action) => {
+            state.requestsPending = true;
+            state.requestDenied = false;
+        })
+        builder.addCase(fetchComments.rejected, (state,action) => {
+            state.requestsPending = false;
+            state.requestDenied = true;
+        })
+        builder.addCase(fetchComments.fulfilled, (state,action) => {
+            state.requestsPending = false;
+            state.requestDenied = false;
+            state.activeComments.push(action.payload);
         })
     }
 });
