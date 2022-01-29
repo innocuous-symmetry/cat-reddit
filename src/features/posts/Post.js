@@ -33,7 +33,7 @@ export default function Post({title,author,subreddit,ups,comments,time,key,media
     
     return (
         <>
-        <div className="post-body">
+        <div className="post-body" key={key}>
 
             {title ?
                 <a className="title" href={`https://reddit.com${permalink}`}>{title}</a>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchBySub } from "./postsSlice";
+import { fetchBySub, selectPosts } from "./postsSlice";
 import { selectAllSubs } from "../reddit/redditSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { updatePosts } from "./postsSlice";
@@ -11,17 +11,21 @@ export default function Feed() {
     const [data, setData] = useState(null);                     // Receives data from getPosts and them maps it onto Post components
     const [feed, setFeed] = useState(null);                     // Expects to receive an array of Post components mapped with data from fetchBySub
     const dispatch = useDispatch();
-    
-    const subs = useSelector(selectAllSubs);                    // Selects subreddits from redditSlice
-    const subArray = Object.values(subs);                       // Places the values within an array
 
+    const posts = useSelector(selectPosts);
+    const subs = useSelector(selectAllSubs);                    // Selects subreddits from redditSlice
     
-    
-    useEffect(() => {                           // this useEffect loop pulls the endpoints from the selected subreddits and stores them as an array in "endpoints"
+    useEffect(() => {                                // this useEffect loop pulls the endpoints from the selected subreddits and stores them as an array in "endpoints"
+        const subArray = Object.values(subs);        // extracts values from selected subs
+
         const prepareData = () => {
             let myEndpoints = [];
-            for (let sub of subArray) {
-                myEndpoints.push(sub.access);
+            for (let sub of subArray) {             // this loop filters subs which are set to isSelected in state
+                if (sub.isSelected) {
+                    myEndpoints.push(sub.access);
+                } else {
+                    continue;
+                }
             }
             setEndpoints(myEndpoints);
         }
@@ -38,14 +42,14 @@ export default function Feed() {
 
         const getPosts = async(arr) => {
             if (endpoints) {
-                const mappedResults = arr.map(each => dispatch(fetchBySub(each)));
+                const mappedResults = arr.map(each => dispatch(fetchBySub(each)));      // maps each endpoint into a call to dispatch fetchBySub
                 return Promise.all([
-                    ...mappedResults
-                ]).then((results) => setData(results));         // data is now set to an object (returned promise)
+                    ...mappedResults                            // ...then promises each of the calls within this array,
+                ]).then((results) => setData(results));         // and stores the returned promises in state as data
             }
         }
 
-        getPosts(endpoints);        // calls this logic on the current value of endpoints
+        getPosts(endpoints);
 
         return () => {
             isActive = false;
@@ -82,8 +86,6 @@ export default function Feed() {
 
                 let sortedPosts = extractedPosts.sort(comparePosts);        // implements sorting function
 
-                console.log(sortedPosts);
-
                 let newFeed = sortedPosts.map((post) => {
                     return (
                         <Post 
@@ -101,8 +103,8 @@ export default function Feed() {
                         />
                     );
                 })
-
-                setFeed(newFeed);       // stores this array of posts in feed
+                // dispatch(updatePosts(newFeed));    // stores current feed in state of postsSlice
+                setFeed(newFeed);
             }
 
         }
@@ -115,7 +117,7 @@ export default function Feed() {
             isActive = false;
         }
 
-    }, [data, setFeed]);
+    }, [data, setFeed, dispatch]);
 
     return (
         <>

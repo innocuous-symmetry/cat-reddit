@@ -1,23 +1,24 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateSubVisibility, selectAllSubs } from "../reddit/redditSlice";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateSubVisibility } from "../reddit/redditSlice";
 
-export default function SidebarItem({sub, isChecked}) {
-    const [checked, setChecked] = useState(isChecked);
+export default function SidebarItem({sub}) {
+    const [visible, setVisible] = useState('hide');
     const dispatch = useDispatch();
-    const allSubs = useSelector(selectAllSubs);
 
     const handleClick = () => {
-        setChecked(!checked);
-        dispatch(updateSubVisibility(sub));
+        if (visible === 'hide') {
+            setVisible('show');
+        } else if (visible === 'show') {
+            setVisible('hide');
+        }
     }
-
-    console.log(allSubs);
 
     return (
         <div className="individual-sub">
-            <input type="checkbox" id={sub} htmlFor={sub} checked={checked} onChange={handleClick}></input>
-            <label htmlFor={sub}>{sub}</label>
+            {/* <input type="checkbox" id={sub} checked={checked} onChange={handleClick}></input> */}
+            <button id={sub} onClick={handleClick}>{visible}</button>
+            <label id={sub}>{sub}</label>
         </div>
     );
 }

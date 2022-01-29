@@ -66,12 +66,22 @@ export const redditSlice = createSlice({
     reducers: {
         updateSubVisibility(state,action) {             // receives a subreddit name as action.payload
             state.subreddits[action.payload].isSelected = !state.subreddits[action.payload].isSelected;
-        }
+        },
+        getActiveSubs(state,action) {
+            let activeSubs = [];
+            let allSubs = state.redditSlice.subreddits;
+            for (let sub in allSubs) {
+                if (sub.isSelected) {
+                    activeSubs.push(sub);
+                } else {
+                    continue;
+                }
+            }
+        },
     },
     extraReducers: {},
 });
 
-export default redditSlice.reducer;
 export const selectAllSubs = state => state.redditSlice.subreddits;
 export const selectActiveSubs = state => {
     let activeSubs = [];
@@ -84,4 +94,5 @@ export const selectActiveSubs = state => {
     }
     return activeSubs;
 }
-export const { updateSubVisibility } = redditSlice.actions;
+export const { updateSubVisibility, getActiveSubs } = redditSlice.actions;
+export default redditSlice.reducer;
