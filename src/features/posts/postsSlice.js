@@ -28,7 +28,7 @@ export const fetchComments = createAsyncThunk(
             console.log(e);
         }
     }
-)
+);
 
 export const postsSlice = createSlice({
     name: 'posts',
@@ -68,3 +68,4 @@ export default postsSlice.reducer;
 export const selectPosts = state => state.postsSlice.posts;
 export const { filterPosts, updatePosts } = postsSlice.actions;
 // exports also includes fetchBySub (takes argument of a sub)
+// exports also includes fetchComments (takes argument of a post permalink)

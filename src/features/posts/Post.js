@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from "react";
 import './Post.css';
 
-export default function Post({title,author,subreddit,ups,comments,time,key,media,permalink,selftext,video}) {
+export default function Post({data, key}) {
+    
+    let title = data.title;                 // imports from data passed in from Feed
+    let author = data.author;
+    let subreddit = data.subreddit;
+    let ups = data.ups;
+    let comments = data.num_comments;
+    let time = data.created_utc;
+    let media = data.post_hint === 'image' && data.url;
+    let permalink = data.permalink;
+    let selftext= data.selftext;
+    let video = data.is_video ? data.media.reddit_video.fallback_url : null;       // to do: handle media edge cases, especially video
+
     const limit = 300;
     const [body, setBody] = useState(selftext);
+
 
     const postDate = new Date(time * 1000);                 // handles conversion from unix timestamp to local time and date strings
     const localTime = postDate.toLocaleTimeString();

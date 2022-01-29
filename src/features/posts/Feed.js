@@ -91,17 +91,8 @@ export default function Feed() {
                 let newFeed = sortedPosts.map((post) => {
                     return (
                         <Post 
-                            title={post.data.title}         // each variable passed in as props
-                            author={post.data.author}
-                            subreddit={post.data.subreddit}
-                            ups={post.data.ups}
-                            comments={post.data.num_comments}
-                            time={post.data.created_utc}
+                            data={post.data}
                             key={v4()}
-                            media={post.data.post_hint === 'image' && post.data.url}
-                            permalink={post.data.permalink}
-                            selftext={post.data.selftext}
-                            video={post.data.is_video ? post.data.media.reddit_video.fallback_url : null}       // to do: handle media edge cases, especially video
                         />
                     );
                 })
