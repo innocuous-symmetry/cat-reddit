@@ -19,7 +19,11 @@ export const fetchComments = createAsyncThunk(
     'posts/fetchComments',
     async(permalink) => {
         try {
-            // stuff
+            const myRequest = new Request(`${permalink}.json`);
+            let response = await fetch(myRequest);
+            let json = await response.json();
+            let postData = json.data.children;
+            return postData;
         } catch(e) {
             console.log(e);
         }
