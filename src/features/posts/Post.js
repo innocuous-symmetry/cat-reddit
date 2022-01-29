@@ -59,6 +59,9 @@ export default function Post({title,author,subreddit,ups,comments,time,key,media
                 <p className="num-comments">{comments ? comments : 'no'} comments</p>
             </div>
 
+            <div className="comment-section">
+            </div>
+
         </div>
         </>
     );
