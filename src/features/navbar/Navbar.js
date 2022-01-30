@@ -12,9 +12,9 @@ export default function Navbar() {
     return (
         <>
         <div className="navbar">
-            <h1>Reddit but it's all cats</h1>
+            <h1 className="nav-title">Reddit, but it's all cats</h1>
             <SearchBar />
-            <button onClick={handleCollapse}>Sidebar</button>
+            <button className="sidebar-button" onClick={handleCollapse}>Sidebar</button>
         </div>
         <div className="sidebar-container">
             <Sidebar isCollapsed={collapsed} />

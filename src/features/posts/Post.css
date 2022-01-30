@@ -1,38 +1,80 @@
+/* Universal styling */
+
 .post-body {
     display: inline-flex;
     flex-direction: column;
     width: 75%;
-    padding: 2rem;
-    border: 1px solid black;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    background-color: #bbd8d3;
     margin: 3rem 0;
 }
 
-.image-placeholder {
-    display: inline-flex;
-    background-color: grey;
-    width: 30%;
-    height: 15rem;
-}
+/* Title */
 
 .title {
     font-size: 2rem;
+    color:darkorchid;
+    text-decoration: none;
+    margin-bottom: 1rem;
 }
+
+.title:visited {
+    color: orchid;
+}
+
+/* Media */
 
 img, video {
     max-height: 45rem;
     object-fit: contain;
 }
 
+/* Metadata */
+
 .post-metadata {
     display: inline-flex;
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid gray;
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
 }
 
+.post-metadata * {
+    background-color:rgb(250, 206, 248);
+    border-color: transparent;
+    text-decoration: none;
+    border-radius: 8px;
+    padding: 5px 8px;
+}
+
 .post-text {
     font-size: 1.2rem;
 }
+
+.post-subreddit {
+    color: rgb(111, 30, 151);
+}
+
+.post-subreddit:visited {
+    color: orchid;
+}
+
+.num-comments {
+    display: inline-flex;
+    background-color: rgb(250, 206, 248);
+    border-color: transparent;
+    border-radius: 8px;
+    padding: 5px 8px;
+}
+
+.num-comments:active {
+    background-color: darkorchid;
+}
+
+/* Handles comment styles on toggle */
 
 .comments-visible {
     display: flex;
