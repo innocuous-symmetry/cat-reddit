@@ -196,7 +196,7 @@ export default function Feed() {
         <>
         {feedPages ? 
 
-        <div className="page-handling">
+        <div className="page-handling" id="top-page-handling">
             <button className="decrement" onClick={handleDecrement}>-</button>
             <p>Page {currentPage} of {feedPages.length ? feedPages.length : 'unknown'}</p>
             <button className="increment" onClick={handleIncrement}>+</button>
@@ -207,7 +207,7 @@ export default function Feed() {
         {feedPages ? feedPages[currentPage] : <h1 className="loading-message">Loading cats for you...</h1>}
         {feedPages ? 
 
-        <div className="page-handling">
+        <div className="page-handling" id="bottom-page-handling">
             <button className="decrement" onClick={handleDecrement}>-</button>
             <p>Page {currentPage} of {feedPages.length ? feedPages.length : 'unknown'}</p>
             <button className="increment" onClick={handleIncrement}>+</button>

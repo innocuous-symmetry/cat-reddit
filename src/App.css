@@ -79,6 +79,10 @@
   width: 6rem;
 }
 
+.sidebar-button:hover {
+  background-color: rgb(218, 171, 216);
+}
+
 .sidebar-button:active {
   background-color: darkorchid;
   transition: background-color 35ms linear;
@@ -131,4 +135,44 @@
   display: hidden;
   flex-direction: column;
   align-items: center;
+}
+
+.page-handling {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  background-color: orchid;
+  border-radius: 15px;
+  width: 50%;
+  height: 3rem;
+}
+
+.page-handling button {
+  background-color: rgb(218, 171, 216);
+  border: transparent;
+  border-radius: 50%;
+  height: 3.5rem;
+  width: 3.5rem;
+  box-shadow:2rem rgb(111, 30, 151);
+}
+
+.page-handling button:hover {
+  background-color: rgb(202, 186, 201);
+}
+
+.page-handling button:active {
+  background-color: rgb(247, 233, 246);
+}
+
+#top-page-handling {
+  margin-bottom: -1rem;
+  margin-top: 2rem;
+}
+
+#bottom-page-handling {
+  margin-top: 5rem;
+  position: relative;
+  bottom: 6rem;
 }
