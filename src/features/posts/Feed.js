@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { fetchBySub, selectPosts } from "./postsSlice";
+import { fetchBySub, /* selectPosts */ } from "./postsSlice";
 import { selectAllSubs } from "../reddit/redditSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { updatePosts } from "./postsSlice";
+// import { updatePosts } from "./postsSlice";
 import { v4 } from "uuid";
 import Post from "./Post";
 
@@ -12,7 +12,7 @@ export default function Feed() {
     const [feed, setFeed] = useState(null);                     // Expects to receive an array of Post components mapped with data from fetchBySub
     const dispatch = useDispatch();
 
-    const posts = useSelector(selectPosts);
+    // const posts = useSelector(selectPosts);
     const subs = useSelector(selectAllSubs);                    // Selects subreddits from redditSlice
     
     useEffect(() => {                                // this useEffect loop pulls the endpoints from the selected subreddits and stores them as an array in "endpoints"
@@ -38,8 +38,6 @@ export default function Feed() {
     
     
     useEffect(() => {               // once this is done, this loop pulls posts from each endpoint
-        let isActive = true;
-
         const getPosts = async(arr) => {
             if (endpoints) {
                 const mappedResults = arr.map(each => dispatch(fetchBySub(each)));      // maps each endpoint into a call to dispatch fetchBySub
@@ -50,11 +48,6 @@ export default function Feed() {
         }
 
         getPosts(endpoints);
-
-        return () => {
-            isActive = false;
-        }
-
     }, [dispatch, setData, endpoints]);
 
     useEffect(() => {

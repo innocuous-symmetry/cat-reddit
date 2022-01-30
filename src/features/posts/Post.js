@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import Discussion from "../discussion/Discussion";
 import './Post.css';
 
@@ -20,7 +20,6 @@ export default function Post({data, key}) {
     const [body, setBody] = useState(selftext);
     const [visible, setVisible] = useState('show ');
     const [commentStyle, setCommentStyle] = useState('comments-hidden');
-    const [crosspost, setCrosspost] = useState(undefined);
 
     const postDate = new Date(time * 1000);                 // handles conversion from unix timestamp to local time and date strings
     const localTime = postDate.toLocaleTimeString();
