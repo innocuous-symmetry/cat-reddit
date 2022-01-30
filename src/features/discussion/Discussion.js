@@ -53,16 +53,38 @@ export default function Discussion({permalink, isVisible}) {
             let commentData = data[1];
             let comments = commentData.data.children;
 
+            const getReplies = (comment) => {
+                if (comment.data.replies) {
+                    console.log(comment.data.replies.data.children);
+                    console.log(comment.data.replies.data.children[0].data.author)
+
+                    return (
+                        <>
+                        <p>THIS IS A REPLY:</p>
+                        <p>Nested {comment.data.replies.data.children[0].data.depth} layers deep</p>
+                        <p>{comment.data.replies.data.children[0].data.is_submitter ? 'OP posted' : ''}</p>
+                        <p>u/{comment.data.replies.data.children[0].data.author}</p>
+                        <p>{comment.data.replies.data.children[0].data.body}</p>
+                        </>
+                    )
+                } else {
+                    return;
+                }
+            }
+
+            console.log(data);
+
             setThread(comments.map((comment) => {
                 return (
-                    <div className="indiv-comment">
-                        <p>{'u/' + comment.data.author}</p>
+                    <div className="indiv-comment" key={v4()}>
+                        <p>u/{comment.data.author}</p>
                         <p>{comment.data.body}</p>
+                        {getReplies(comment)}
                     </div>
                 )
             }))
         }
-    }, [data]);
+    }, [data, setThread]);
 
     return (
         <div className="discussion-thread">
