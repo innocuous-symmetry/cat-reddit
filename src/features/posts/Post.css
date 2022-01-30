@@ -6,8 +6,10 @@
     width: 75%;
     padding: 1rem 2rem;
     border-radius: 10px;
-    background-color: #bbd8d3;
+    background-color: #bfbbd8;
+    border: 1px solid rgb(250, 206, 248);
     margin: 3rem 0;
+    z-index: 5;
 }
 
 /* Title */
@@ -103,6 +105,10 @@ img, video {
     }
 
     .post-metadata * {
-        max-width: 15%;
+        max-width: 30%;
+    }
+
+    .hide-mobile {
+        display: none;
     }
 }
