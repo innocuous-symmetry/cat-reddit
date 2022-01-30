@@ -132,12 +132,6 @@
   width: 90vw;
 }
 
-.about-the-app {
-  display: hidden;
-  flex-direction: column;
-  align-items: center;
-}
-
 .page-handling {
   display: inline-flex;
   flex-direction: row;
@@ -176,4 +170,55 @@
   margin-top: 5rem;
   position: relative;
   bottom: 6rem;
+}
+
+/* Media queries (tablet) */
+
+@media only screen and (max-width: 1050px) {
+  /* Navbar */
+
+  .navbar {
+    height: 4rem;
+  }
+
+  .nav-title {
+    font-size: 1rem;
+  }
+
+  .nav-searchbar {
+    width: 25rem;
+    right: 2rem;
+  }
+
+  /* Sidebar */
+
+  .sidebar-button {
+    height: 2.6rem;
+    width: 5rem;
+  }
+
+  .sidebar {
+    top: 4rem;
+  }
+
+  .sidebar-hidden {
+    top: 4rem;
+  }
+
+  /* Feed */
+
+  .content-container {
+    top: 4rem;
+  }
+
+  .page-handling {
+    height: 3rem;
+    padding: 0.5rem;
+  }
+
+  .page-handling button {
+    height: 2rem;
+    width: 2rem;
+    margin: 0 0.4rem;
+  }
 }

@@ -161,7 +161,7 @@ export default function Feed() {
 
         <div className="page-handling" id="top-page-handling">
             <button className="decrement" onClick={handleDecrement}>-</button>
-            <p>Page {currentPage} of {feedPages.length ? feedPages.length : 'unknown'}</p>
+            <p>Page {currentPage + 1} of {feedPages.length ? (feedPages.length + 1) : 'unknown'}</p>
             <button className="increment" onClick={handleIncrement}>+</button>
         </div>
 
@@ -172,7 +172,7 @@ export default function Feed() {
 
         <div className="page-handling" id="bottom-page-handling">
             <button className="decrement" onClick={handleDecrement}>-</button>
-            <p>Page {currentPage} of {feedPages.length ? feedPages.length : 'unknown'}</p>
+            <p>Page {currentPage + 1} of {feedPages.length ? (feedPages.length + 1) : 'unknown'}</p>
             <button className="increment" onClick={handleIncrement}>+</button>
         </div>
 
