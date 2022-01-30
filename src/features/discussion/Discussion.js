@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, /* useSelector */ } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { fetchComments, isPending } from '../posts/postsSlice';
+import { fetchComments } from '../posts/postsSlice';
 import { v4 } from 'uuid';
 
 export default function Discussion({permalink, isVisible}) {
@@ -9,11 +9,7 @@ export default function Discussion({permalink, isVisible}) {
     const [data, setData] = useState(null);
     const dispatch = useDispatch();
 
-    const isLoading = useSelector(isPending);
-
     const formattedLink = permalink.substring(0,(permalink.length-1));
-
-    let deps = [isVisible, data, setData, thread, setThread, formattedLink, dispatch];
 
     useEffect(() => {
         let isActive = true;
