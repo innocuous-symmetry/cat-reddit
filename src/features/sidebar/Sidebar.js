@@ -29,7 +29,8 @@ export default function Sidebar({isCollapsed}) {
 
     return (
         <>
-        <div className={isCollapsed ? 'sidebar-hidden' : 'sidebar'}>  {/* Is collapsed is passed from the parent component, and is mutable within the navbar */}
+                    {/* isCollapsed is passed from the parent component, and is mutable within the navbar */}
+        <div className={isCollapsed ? 'sidebar-hidden' : 'sidebar'}>
             {
                 subs.map((sub) => {             // Maps each sub to its own line within the sidebar, along with a button that toggles its "isSelected" property
                     return (
@@ -39,6 +40,8 @@ export default function Sidebar({isCollapsed}) {
             }
             <input className="search-sub-input" type="text" onChange={handleChange} placeholder="Search Subs to Add"></input>
         </div>
+
+        {/* displays subreddit search results */}
         <div className={searchWindowStyle.current}>
             <h2>Search Results for: {searchSubs}</h2>
             <p>(results here)</p>
