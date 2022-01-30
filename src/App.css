@@ -97,7 +97,7 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  width: 12rem;
+  width: 13.5rem;
   position: fixed;
   background-color: black;
   color: white;
