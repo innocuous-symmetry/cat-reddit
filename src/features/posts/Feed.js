@@ -10,6 +10,9 @@ export default function Feed() {
     const [endpoints, setEndpoints] = useState(null);           // Expects to receive an array of endpoints from which to fetch the posts
     const [data, setData] = useState(null);                     // Receives data from getPosts and them maps it onto Post components
     const [feed, setFeed] = useState(null);                     // Expects to receive an array of Post components mapped with data from fetchBySub
+
+    const [feedPage, setFeedPage] = useState(['']);             // Expects an array of arrays (pages of feed posts)
+    const [currentPage, setCurrentPage] = useState(0);
     const dispatch = useDispatch();
 
     // const posts = useSelector(selectPosts);

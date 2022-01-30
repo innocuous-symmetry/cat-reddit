@@ -16,7 +16,7 @@ Additional features implemented include:
 
 ## Changelog:
 
-### Version 0.1, 01/30/2022
+### Version 0, 01/30/2022
 
 First project build!
 
