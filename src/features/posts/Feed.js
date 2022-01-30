@@ -114,7 +114,7 @@ export default function Feed() {
 
     return (
         <>
-        {feed ? feed : <h1>Loading cats for you...</h1>}
+        {feed ? feed : <h1 className="loading-message">Loading cats for you...</h1>}
         </>
     );
 }

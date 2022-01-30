@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchComments } from "./postsSlice";
 import Discussion from "../discussion/Discussion";
 import './Post.css';
 
@@ -87,13 +86,15 @@ export default function Post({data, key}) {
             : ''}
 
             <div className="post-metadata">
-                <a href={`https://www.reddit.com${permalink}`}>
+                <p className="user">{author ? 'u/' + author : 'u/username'}</p>
+                <a className="post-subreddit" href={`https://www.reddit.com/r/${subreddit}`}>
                     {subreddit ? 'r/' + subreddit  : ''}
                 </a>
-                
-                <p className="user">{author ? 'u/' + author : 'u/username'}</p>
+                {ups ? <p>{ups} upvotes</p> : null}
                 <p className="time-posted">posted at {time ? (localTime + ' on ' + localDate) : '...?'}</p>
-                <button className="num-comments" onClick={handleClick}>{comments ? visible + comments : 'no'} comments</button>
+                <button className="num-comments" onClick={handleClick}>
+                    {comments ? visible + comments + ' comments' : 'no comments'}
+                </button>
             </div>
 
             <div className={commentStyle}>
