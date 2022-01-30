@@ -113,8 +113,8 @@ export default function Post({data, key}) {
                 <a className="post-subreddit" href={`https://www.reddit.com/r/${subreddit}`}>
                     {subreddit ? 'r/' + subreddit  : ''}
                 </a>
-                {ups ? <p>{ups} upvotes</p> : null}
-                <p className="time-posted">posted at {time ? (localTime + ' on ' + localDate) : '...?'}</p>
+                {ups ? <p className="hide-mobile">{ups} upvotes</p> : null}
+                <p className="time-posted hide-mobile">posted at {time ? (localTime + ' on ' + localDate) : '...?'}</p>
                 <button className="num-comments" onClick={handleClick}>
                     {comments ? visible + comments + ' comments' : 'no comments'}
                 </button>

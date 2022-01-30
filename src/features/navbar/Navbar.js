@@ -12,7 +12,8 @@ export default function Navbar() {
     return (
         <>
         <div className="navbar">
-            <h1 className="nav-title">Reddit, but it's all cats</h1>
+            <h1 className="nav-title desktop-title">Reddit, but it's all cats</h1>
+            <h1 className="nav-title mobile-title">Cat Reddit</h1>
             <SearchBar />
             <button className="sidebar-button" onClick={handleCollapse}>Sidebar</button>
         </div>

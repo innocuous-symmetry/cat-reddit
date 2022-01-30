@@ -6,8 +6,10 @@
     width: 75%;
     padding: 1rem 2rem;
     border-radius: 10px;
-    background-color: #bbd8d3;
+    background-color: #bfbbd8;
+    border: 1px solid rgb(250, 206, 248);
     margin: 3rem 0;
+    z-index: 5;
 }
 
 /* Title */
@@ -43,6 +45,7 @@ img, video {
 }
 
 .post-metadata * {
+    display: inline-flex;
     background-color:rgb(250, 206, 248);
     border-color: transparent;
     text-decoration: none;
@@ -84,4 +87,28 @@ img, video {
 
 .comments-hidden {
     display: none;
+}
+
+/* Queries */
+
+@media only screen and (max-width: 1050px) {        /* for tablets */
+    img, video {
+        max-height: 25rem;
+    }
+    .title {
+        font-size: 1.5rem;
+    }
+    .post-metadata {
+        font-size: 0.8rem;
+        text-align: center;
+        text-overflow: ellipsis;
+    }
+
+    .post-metadata * {
+        max-width: 30%;
+    }
+
+    .hide-mobile {
+        display: none;
+    }
 }
