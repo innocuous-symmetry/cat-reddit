@@ -117,16 +117,16 @@ export default function Feed() {
             isActive = true;
         }
 
-        if (isActive) {
+        if (isActive) {                 // iterates through the total array of posts, stored in feed
             try {
                 let allPages = [];
-                for (let i = 0; i < feed.length; i += 10) {
-                    let indivPage = [];
+                for (let i = 0; i < feed.length; i += 10) {     // maps through them in sets of ten,
+                    let indivPage = [];                         // stores them in a corresponding inner page array,
                     indivPage = feed.slice(i,i+10);
                     allPages.push(indivPage);
                 }
-                setFeedPages(allPages);
-            } catch(e) {
+                setFeedPages(allPages);               // then stores them in an encompassing array of page arrays, as
+            } catch(e) {                              // stateful variable "feedPages".
                 console.log(e);
             }
         }
@@ -137,49 +137,12 @@ export default function Feed() {
     },[feed, setFeedPages]);
 
 
-    // useEffect(() => {                   // this loops handles mapping the feed onto individual pages,
-    //     let isActive = true;            // allowing the application to render subsets of the whole feed at once, reducing render times
-
-    //     const doPages = async () => {
-    //         try {
-    //             let localFeed = await feed;
-
-    //             if (localFeed) {
-    //                 for (let i = 0; i < feed.length; i += 10) {
-    //                     let allPages = [];
-    //                     for (let j = 0; j < 10; j++) {
-    //                         let indivPage = [];
-    //                         if (feed[i+j]) {
-    //                             indivPage.push(feed[i+j])
-    //                         } else {
-    //                             return;
-    //                         }
-    //                         allPages.push(indivPage);
-    //                     }
-    //                     setFeedPages(allPages);
-    //                 }
-    //             }
-    //         } catch(e) {
-    //             console.log(e);
-    //         }
-    //     }
-
-    //     if (isActive && feed) {
-    //         doPages();
-    //     }
-
-    //     return () => {
-    //         isActive = false;
-    //     }
-
-    // }, [feed, feedPages]);
-
-    const handleIncrement = () => {
+    const handleIncrement = () => {                         // handles the logic of setting the current page value
         if (currentPage + 1 > feedPages.length) {
             return;
         } else {
             setCurrentPage((prev) => prev+1);
-            window.scrollTo(0,0);
+            window.scrollTo(0,0);                       // includes a "send to top of page" feature on click
         }
     }
 
