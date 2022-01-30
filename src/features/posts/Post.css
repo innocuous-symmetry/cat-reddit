@@ -33,3 +33,13 @@ img, video {
 .post-text {
     font-size: 1.2rem;
 }
+
+.comments-visible {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.comments-hidden {
+    display: none;
+}

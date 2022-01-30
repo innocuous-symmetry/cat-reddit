@@ -15,10 +15,25 @@ export const fetchBySub = createAsyncThunk(
     }
 );
 
+export const fetchComments = createAsyncThunk(
+    'posts/fetchComments',
+    async(permalink) => {
+        try {
+            const myRequest = new Request(`https://www.reddit.com${permalink}.json`);
+            let response = await fetch(myRequest);
+            let postData = await response.json();                   // returns an array of two objects, the first containing data about
+            return postData;                                        // the post, the second containing data about the discussion thread
+        } catch(e) {
+            console.log(e);
+        }
+    }
+);
+
 export const postsSlice = createSlice({
     name: 'posts',
     initialState: {
         posts: [],
+        activeComments: [],
         requestsPending: false,
         requestDenied: false,
     },
@@ -46,10 +61,26 @@ export const postsSlice = createSlice({
                 state.posts.push(sub);              // nesting arrays within the state's posts
             }
         })
+
+        builder.addCase(fetchComments.pending, (state,action) => {
+            state.requestsPending = true;
+            state.requestDenied = false;
+        })
+        builder.addCase(fetchComments.rejected, (state,action) => {
+            state.requestsPending = false;
+            state.requestDenied = true;
+        })
+        builder.addCase(fetchComments.fulfilled, (state,action) => {
+            state.requestsPending = false;
+            state.requestDenied = false;
+            state.activeComments.push(action.payload);
+        })
     }
 });
 
 export default postsSlice.reducer;
 export const selectPosts = state => state.postsSlice.posts;
+export const isPending = state => state.postsSlice.requestsPending;
 export const { filterPosts, updatePosts } = postsSlice.actions;
 // exports also includes fetchBySub (takes argument of a sub)
+// exports also includes fetchComments (takes argument of a post permalink)
