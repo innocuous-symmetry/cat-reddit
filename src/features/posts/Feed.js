@@ -10,6 +10,9 @@ export default function Feed() {
     const [endpoints, setEndpoints] = useState(null);           // Expects to receive an array of endpoints from which to fetch the posts
     const [data, setData] = useState(null);                     // Receives data from getPosts and them maps it onto Post components
     const [feed, setFeed] = useState(null);                     // Expects to receive an array of Post components mapped with data from fetchBySub
+
+    const [feedPages, setFeedPages] = useState(null);             // Expects an array of arrays (pages of feed posts)
+    const [currentPage, setCurrentPage] = useState(0);          // Determines current feed page; corresponds to index of feedPage array
     const dispatch = useDispatch();
 
     // const posts = useSelector(selectPosts);
@@ -67,8 +70,6 @@ export default function Feed() {
                     }
                 };
 
-                console.log(extractedPosts);
-
                 const comparePosts = (a,b) => {                                 // sorting function: compares time posted within each object in array
                     if (a.data.created_utc > b.data.created_utc) {
                         return -1;
@@ -87,8 +88,9 @@ export default function Feed() {
                             data={post.data}
                             key={v4()}
                         />
-                    );
+                    )
                 })
+                
                 // dispatch(updatePosts(newFeed));    // stores current feed in state of postsSlice
                 setFeed(newFeed);
             }
@@ -105,9 +107,76 @@ export default function Feed() {
 
     }, [data, setFeed, dispatch]);
 
+
+    useEffect(() => {
+        let isActive = false;
+
+        if (!feed) {
+            isActive = false;
+        } else if (feed) {
+            isActive = true;
+        }
+
+        if (isActive) {                 // iterates through the total array of posts, stored in feed
+            try {
+                let allPages = [];
+                for (let i = 0; i < feed.length; i += 10) {     // maps through them in sets of ten,
+                    let indivPage = [];                         // stores them in a corresponding inner page array,
+                    indivPage = feed.slice(i,i+10);
+                    allPages.push(indivPage);
+                }
+                setFeedPages(allPages);               // then stores them in an encompassing array of page arrays, as
+            } catch(e) {                              // stateful variable "feedPages".
+                console.log(e);
+            }
+        }
+
+        return () => {
+            isActive = false;
+        }
+    },[feed, setFeedPages]);
+
+
+    const handleIncrement = () => {                         // handles the logic of setting the current page value
+        if (currentPage + 1 > feedPages.length) {
+            return;
+        } else {
+            setCurrentPage((prev) => prev+1);
+            window.scrollTo(0,0);                       // includes a "send to top of page" feature on click
+        }
+    }
+
+    const handleDecrement = () => {
+        if (currentPage - 1 < 0) {
+            return;
+        } else {
+            setCurrentPage((prev) => prev-1);
+            window.scrollTo(0,0);
+        }
+    }
+
     return (
         <>
-        {feed ? feed : <h1 className="loading-message">Loading cats for you...</h1>}
+        {feedPages ? 
+
+        <div className="page-handling" id="top-page-handling">
+            <button className="decrement" onClick={handleDecrement}>-</button>
+            <p>Page {currentPage} of {feedPages.length ? feedPages.length : 'unknown'}</p>
+            <button className="increment" onClick={handleIncrement}>+</button>
+        </div>
+
+        : null }
+
+        {feedPages ? feedPages[currentPage] : <h1 className="loading-message">Loading cats for you...</h1>}
+        {feedPages ? 
+
+        <div className="page-handling" id="bottom-page-handling">
+            <button className="decrement" onClick={handleDecrement}>-</button>
+            <p>Page {currentPage} of {feedPages.length ? feedPages.length : 'unknown'}</p>
+            <button className="increment" onClick={handleIncrement}>+</button>
+        </div>
+
+        : null }
         </>
     );
 }
