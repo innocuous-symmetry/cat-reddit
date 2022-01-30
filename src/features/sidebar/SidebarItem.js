@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { updateSubVisibility } from "../reddit/redditSlice";
+import React, { useState } from "react";
+// import { useDispatch } from "react-redux";
+// import { updateSubVisibility } from "../reddit/redditSlice";
 
 export default function SidebarItem({sub}) {
-    const [visible, setVisible] = useState('hide');
-    const dispatch = useDispatch();
+    const [visible, setVisible] = useState('hide');     // dispatch will be used to dispatch updateSubVisibility on change in state
+    // const dispatch = useDispatch();                  // this will likely be within a useEffect hook
 
     const handleClick = () => {
         if (visible === 'hide') {

@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Navbar from './features/navbar/Navbar';
-import Post from './features/posts/Post';
 import Feed from './features/posts/Feed';
 
 function App() {
