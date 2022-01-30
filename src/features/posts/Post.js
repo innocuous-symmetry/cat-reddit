@@ -20,6 +20,7 @@ export default function Post({data, key}) {
     const [body, setBody] = useState(selftext);
     const [visible, setVisible] = useState('show ');
     const [commentStyle, setCommentStyle] = useState('comments-hidden');
+    const [crosspost, setCrosspost] = useState(undefined);
 
     const postDate = new Date(time * 1000);                 // handles conversion from unix timestamp to local time and date strings
     const localTime = postDate.toLocaleTimeString();
@@ -66,6 +67,19 @@ export default function Post({data, key}) {
         }
         setBody(selftext.substring(0,limit) + '...');
     }
+
+    const handleCrosspost = () => {
+        if (data.crosspost_parent_list[0].is_video) {
+            return (
+                <>
+                <video src={data.crosspost_parent_list[0].url}>This video is not supported by your browser.</video>
+                <p>Crosspost from {data.crosspost_parent_list[0].subreddit_name_prefixed}</p>
+                </>
+            );
+        } else {
+            return;
+        }
+    }
     
     return (
         <>
@@ -76,8 +90,18 @@ export default function Post({data, key}) {
             : <p>[untitled]</p>}
 
             {media ? <img alt={title} src={media} /> : ''}
+            {data.crosspost_parent_list ? handleCrosspost() : ''}
+            {data.crosspost_parent_list ? 
+                (data.crosspost_parent_list[0].is_video ?
+                    <video src={data.crosspost_parent_list[0].url}></video>
+                : null)
+            : null}
 
-            {video ? 
+            {data.gallery_data ?
+                <p>View the gallery of photos corresponding to this post <a href={data.url}>here</a>.</p>
+            : null}
+
+            {video ?
                 <video controls type="video/mp4" src={video}></video>
             : ''}
 
