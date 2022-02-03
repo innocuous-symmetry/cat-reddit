@@ -29,11 +29,32 @@ export const fetchComments = createAsyncThunk(
     }
 );
 
+export const searchByActive = createAsyncThunk(
+    'posts/searchByActive',
+    async(obj) => {
+        const { sub, term } = obj;
+        try {
+            let fulfilledResponse;
+            const myRequest = new Request(`https://www.reddit.com/${sub}/search.json?q=${term}&restrict_sr=1&sr_nsfw=`);
+            let response = await fetch(myRequest);
+            if (response.ok) {
+                let searchData = await response.json();
+                fulfilledResponse = searchData;
+            }
+            return fulfilledResponse;
+
+        } catch(e) {
+            console.log(e);
+        }
+    }
+)
+
 export const postsSlice = createSlice({
     name: 'posts',
     initialState: {
         posts: [],
         activeComments: [],
+        searchResults: [],
         requestsPending: false,
         requestDenied: false,
     },
@@ -43,7 +64,7 @@ export const postsSlice = createSlice({
         },
         updatePosts(state,action) {
             state.posts = action.payload;
-        },
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchBySub.pending, (state,action) => {
@@ -75,12 +96,28 @@ export const postsSlice = createSlice({
             state.requestDenied = false;
             state.activeComments.push(action.payload);
         })
+
+        builder.addCase(searchByActive.pending, (state,action) => {
+            state.requestsPending = true;
+            state.requestDenied = false;
+        })
+        builder.addCase(searchByActive.rejected, (state,action) => {
+            state.requestsPending = false;
+            state.requestDenied = true;
+        })
+        builder.addCase(searchByActive.fulfilled, (state,action) => {
+            state.requestsPending = false;
+            state.requestDenied = false;
+            state.searchResults = action.payload;
+        })
     }
 });
 
 export default postsSlice.reducer;
 export const selectPosts = state => state.postsSlice.posts;
 export const isPending = state => state.postsSlice.requestsPending;
+export const selectSearchResults = state => state.postsSlice.searchResults;
 export const { filterPosts, updatePosts } = postsSlice.actions;
 // exports also includes fetchBySub (takes argument of a sub)
 // exports also includes fetchComments (takes argument of a post permalink)
+// exports also includes searchByActive
