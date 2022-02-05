@@ -83,9 +83,17 @@ export const selectAllSubs = state => state.redditSlice.subreddits;
 export const selectActive = state => {
     let subs = [];
     for (let sub in state.redditSlice.subreddits) {
-        if (sub.isSelected) {subs.push(sub)}
+        subs.push(sub);
     }
-    return subs;
+    
+    let activeSubs = [];
+    for (let each of subs) {
+        if (each.isSelected) {
+            activeSubs.push(each);
+        }
+    }
+
+    return activeSubs;
 }
 export const { updateSubVisibility, getActiveSubs } = redditSlice.actions;
 export default redditSlice.reducer;

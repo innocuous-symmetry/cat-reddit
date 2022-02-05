@@ -1,29 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchByActive, selectSearchResults } from '../posts/postsSlice';
-import { selectAllSubs } from "../reddit/redditSlice";
+import { selectActive, selectAllSubs } from "../reddit/redditSlice";
 
 export default function SearchBar() {
     const dispatch = useDispatch();
 
     const selectedSubs = useSelector(selectAllSubs);
     console.log(selectedSubs);
-
-    const handleActive = () => {
-        let names = [];
-        for (let name in selectedSubs) {
-            names.push(name);
-        }
-
-        console.log(names);
-
-        console.log(Object.values(selectedSubs[0]));
-    }
-
-    handleActive();
+    
+    const activeSubs = useSelector(selectActive);
+    console.log(activeSubs);
     
     const [term, setTerm] = useState('');
-    const [activeSubs, setActiveSubs] = useState(null);
     const [toDispatch, setToDispatch] = useState(null);
     const [results, setResults] = useState(null);
     const searchData = useSelector(selectSearchResults);
