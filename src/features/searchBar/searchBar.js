@@ -7,13 +7,9 @@ export default function SearchBar() {
     const dispatch = useDispatch();
 
     const selectedSubs = useSelector(selectAllSubs);
-    console.log(selectedSubs);
-    
     const activeSubs = useSelector(selectActive);
-    console.log(activeSubs);
     
     const [term, setTerm] = useState('');
-    const [toDispatch, setToDispatch] = useState(null);
     const [results, setResults] = useState(null);
     const searchData = useSelector(selectSearchResults);
 
@@ -23,20 +19,15 @@ export default function SearchBar() {
     }
 
     const handleSubmit = () => {
-        let examples = ['r/cats', 'r/cattaps'];
-        let mapped = [];
-        if (term) {
-            mapped = examples.map((sub) => dispatch(searchByActive({
-                sub, term
-            })));
-        }
+        if (term && activeSubs) {
+            let extracted = [];
+            for (let sub in activeSubs) {
+                extracted.push(sub);
+            }
 
-        if (activeSubs) {
-            console.log(activeSubs);
-        }
-
-        if (term) {
-            Promise.all([...mapped]).then((results) => setResults(results));
+            console.log(extracted);
+            let mapped = extracted.map((sub) => dispatch(searchByActive({sub, term})));
+            Promise.all([...mapped]).then((data) => setResults(data));
         }
     }
 
@@ -51,7 +42,7 @@ export default function SearchBar() {
         return () => {
             active = false;
         }
-    }, [results]);
+    }, [results, activeSubs]);
 
     return (
         <>
