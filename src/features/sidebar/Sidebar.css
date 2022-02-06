@@ -20,6 +20,14 @@
     margin: 0.8rem 0;
 }
 
+.individual-sub button {
+    margin-right: 1rem;
+}
+
+.individual-sub label {
+    text-align: right;
+}
+
 .search-sub-input {
     margin-top: 2rem;
 }
