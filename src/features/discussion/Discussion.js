@@ -55,13 +55,14 @@ export default function Discussion({permalink, isVisible}) {
                     console.log(comment.data.replies.data.children[0].data.author)
 
                     return (
-                        <>
-                        <p>THIS IS A REPLY:</p>
-                        <p>Nested {comment.data.replies.data.children[0].data.depth} layers deep</p>
-                        <p>{comment.data.replies.data.children[0].data.is_submitter ? 'OP posted' : ''}</p>
-                        <p>u/{comment.data.replies.data.children[0].data.author}</p>
-                        <p>{comment.data.replies.data.children[0].data.body}</p>
-                        </>
+                        <div className={comment.data.replies.data.children ? `indiv-comment nested` : "indiv-comment"}>
+                            <p className="comment-author">
+                                u/{comment.data.replies.data.children[0].data.author}
+                                {comment.data.replies.data.children[0].data.is_submitter ? ' (OP)' : ''}
+                                {comment.data.replies.data.children ? ' replied:' : ''}
+                            </p>
+                            <p className="comment-body">{comment.data.replies.data.children[0].data.body}</p>
+                        </div>
                     )
                 } else {
                     return;
@@ -72,11 +73,13 @@ export default function Discussion({permalink, isVisible}) {
 
             setThread(comments.map((comment) => {
                 return (
+                    <>
                     <div className="indiv-comment" key={v4()}>
                         <p>u/{comment.data.author}</p>
                         <p>{comment.data.body}</p>
-                        {getReplies(comment)}
                     </div>
+                    {getReplies(comment)}
+                    </>
                 )
             }))
         }

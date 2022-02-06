@@ -76,6 +76,10 @@ img, video {
     background-color: #064486;
 }
 
+.crosspost-from {
+    color:rgb(228, 180, 226);
+}
+
 /* Handles comment styles on toggle */
 
 .comments-visible {
@@ -86,6 +90,23 @@ img, video {
 
 .comments-hidden {
     display: none;
+}
+
+/* Comment styling */
+
+.indiv-comment {
+    background-color: #7196be;
+    border-radius: 15px;
+}
+
+.nested {
+    position: relative;
+    width: calc(100% - 2.5rem);
+    left: 2.5rem;
+}
+
+.indiv-comment p {
+    padding: 1rem;
 }
 
 /* Queries */
