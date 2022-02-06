@@ -6,8 +6,7 @@
     width: 75%;
     padding: 1rem 2rem;
     border-radius: 10px;
-    background-color: #bfbbd8;
-    border: 1px solid rgb(250, 206, 248);
+    background-color: rgb(29, 4, 39);
     margin: 3rem 0;
     z-index: 5;
 }
@@ -16,13 +15,13 @@
 
 .title {
     font-size: 2rem;
-    color:darkorchid;
+    color: rgb(190, 113, 188);
     text-decoration: none;
     margin-bottom: 1rem;
 }
 
 .title:visited {
-    color: orchid;
+    color: rgb(228, 180, 226);
 }
 
 /* Media */
@@ -46,7 +45,7 @@ img, video {
 
 .post-metadata * {
     display: inline-flex;
-    background-color:rgb(250, 206, 248);
+    background-color: rgb(190, 113, 188);
     border-color: transparent;
     text-decoration: none;
     border-radius: 8px;
@@ -58,23 +57,27 @@ img, video {
 }
 
 .post-subreddit {
-    color: rgb(111, 30, 151);
+    color: black;
 }
 
 .post-subreddit:visited {
-    color: orchid;
+    color: rgb(97, 49, 95);
 }
 
 .num-comments {
     display: inline-flex;
-    background-color: rgb(250, 206, 248);
+    background-color: #7196be;
     border-color: transparent;
     border-radius: 8px;
     padding: 5px 8px;
 }
 
 .num-comments:active {
-    background-color: darkorchid;
+    background-color: #064486;
+}
+
+.crosspost-from {
+    color:rgb(228, 180, 226);
 }
 
 /* Handles comment styles on toggle */
@@ -87,6 +90,23 @@ img, video {
 
 .comments-hidden {
     display: none;
+}
+
+/* Comment styling */
+
+.indiv-comment {
+    background-color: #7196be;
+    border-radius: 15px;
+}
+
+.nested {
+    position: relative;
+    width: calc(100% - 2.5rem);
+    left: 2.5rem;
+}
+
+.indiv-comment p {
+    padding: 1rem;
 }
 
 /* Queries */

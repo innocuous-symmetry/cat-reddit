@@ -82,6 +82,8 @@ export default function Feed() {
 
                 let sortedPosts = extractedPosts.sort(comparePosts);        // implements sorting function
 
+                console.log(sortedPosts);
+                
                 let newFeed = sortedPosts.map((post) => {
                     return (
                         <Post 
