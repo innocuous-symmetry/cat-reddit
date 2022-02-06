@@ -1,4 +1,3 @@
-import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateSubVisibility } from "../reddit/redditSlice";
 
