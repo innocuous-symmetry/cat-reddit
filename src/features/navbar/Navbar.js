@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SearchBar from "../searchBar/searchBar";
+// import SearchBar from "../searchBar/searchBar";
 import Sidebar from "../sidebar/Sidebar";
 
 export default function Navbar() {
