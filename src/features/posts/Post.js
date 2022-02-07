@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import Discussion from "../discussion/Discussion";
 import './Post.css';
 
+// updating for video player
+
 export default function Post({data, key}) {
 
     let title = data.title;                 // imports from data passed in from Feed
