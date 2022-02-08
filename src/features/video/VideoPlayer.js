@@ -2,16 +2,17 @@ import { useState, useEffect, useRef } from 'react';
 
 export default function VideoPlayer({data, src}) {
     const vid = useRef();
-    const aud = useRef();
+    const aud = useRef();        // identifies location of video/audio in DOM
+    
+    const [playing, setPlaying] = useState(false);      // handles play/pause logic
 
     const crossPostSrc = src;
 
-    let url = crossPostSrc ? crossPostSrc : 
-        (data.url ? data.url : null);
-    const [playing, setPlaying] = useState(false);
+    let url = crossPostSrc ? crossPostSrc :             // sets video source according to applicable
+        (data.url ? data.url : null);                   // location within reddit response
 
-    useEffect(() => {
-        if (playing) {
+    useEffect(() => {                   // synchronizes play/pause between two components
+        if (playing) {                  // according to section of state
             vid.current.play();
             vid.current.currentTime = aud.current.currentTime;
         } else if (!playing) {

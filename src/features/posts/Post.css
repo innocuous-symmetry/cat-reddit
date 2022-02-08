@@ -95,7 +95,13 @@ img, video {
 
 /* Video player */
 
+.video-player {
+    display: inline-flex;
+}
 
+.post-audio, .post-video {
+    position: absolute;
+}
 
 /* Handles comment styles on toggle */
 
