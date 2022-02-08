@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 import Discussion from "../discussion/Discussion";
 import './Post.css';
 
-// updating for video player
-
 export default function Post({data, key}) {
 
     let title = data.title;                 // imports from data passed in from Feed
@@ -108,16 +106,11 @@ export default function Post({data, key}) {
                 <p>View the gallery of photos corresponding to this post <a href={data.url}>here</a>.</p>
             : null}
 
-            {video ?
-                <video
-                    controls
-                    poster={data.thumbnail}
-                    preload="auto"
-                    src={video}>
-                    
+            {data.is_video ?
+                <video controls poster={data.thumbnail} preload="auto" src={`${data.url}/DASH_audio.mp4`} type="video/mp4">
                     Your video is not supported by the browser.
                 </video>
-            : ''}
+            : null}
 
             {body ?
                 <p onMouseOver={handleHover} onMouseOut={handleMouseOut}>{body}</p>
