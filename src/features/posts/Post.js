@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { useDispatch } from "react-redux";
 import Discussion from "../discussion/Discussion";
 import VideoPlayer from "../video/VideoPlayer";
 import './Post.css';
@@ -71,7 +70,7 @@ export default function Post({data, key}) {
         if (data.crosspost_parent_list[0].is_video) {
             return (
                 <>
-                <video controls src={data.crosspost_parent_list[0].media.reddit_video.fallback_url}>This video is not supported by your browser.</video>
+                <VideoPlayer data={data} src={data.crosspost_parent_list[0].url} />
                 <p className="crosspost-from">Crosspost from {data.crosspost_parent_list[0].subreddit_name_prefixed}</p>
                 </>
             );

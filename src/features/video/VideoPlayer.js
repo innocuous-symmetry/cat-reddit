@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 
-export default function VideoPlayer({data}) {
+export default function VideoPlayer({data, src}) {
     const vid = useRef();
     const aud = useRef();
 
-    let url = data.url ? data.url : null;
+    const crossPostSrc = src;
+
+    let url = crossPostSrc ? crossPostSrc : 
+        (data.url ? data.url : null);
     const [playing, setPlaying] = useState(false);
 
     useEffect(() => {
