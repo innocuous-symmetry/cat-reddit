@@ -64,6 +64,19 @@ img, video {
     color: rgb(97, 49, 95);
 }
 
+.gallery-statement {
+    color: rgb(228, 180, 226);
+}
+
+.gallery-statement a {
+    color: white;
+    text-decoration: none;
+}
+
+.gallery-statement a:active {
+    color:rgb(97, 49, 95);
+}
+
 .num-comments {
     display: inline-flex;
     background-color: #7196be;

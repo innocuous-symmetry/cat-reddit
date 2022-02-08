@@ -1,30 +1,33 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function VideoPlayer({data}) {
-    let playerVideo = useRef();
-    let playerAudio = useRef();
-    const [playing, setPlaying] = useState(false);
+    const vid = useRef();
+    const aud = useRef();
+
+    const vidPosition = useRef(0);
+    const audPosition = useRef(0);
 
     let url = data.url ? data.url : null;
+    const [playing, setPlaying] = useState(false);
 
-    const handlePlay = () => {
-        setPlaying(true);
-
+    useEffect(() => {
         if (playing) {
-            playerAudio.current.currentTime = playerVideo.current.currentTime;
-            setPlaying(false);
+            aud.current.play();
+            vid.current.currentTime = aud.current.currentTime;
+        } else if (!playing) {
+            aud.current.pause();
         }
-    }
-
-    const handlePause = () => {
-        playerAudio.current.pause();
-        setPlaying(false);
-    }
+    }, [playing, aud, vid]);
 
     return (
         <div className="video-player">
-            <video ref={playerVideo.current} src={`${url}/DASH_1080.mp4`} onPlay={handlePlay} onPause={handlePause}></video>
-            <audio ref={playerAudio.current} className="audio-hidden" src={`${url}/DASH_audio.mp4`} type="audio/mp4"></audio>
+            <video ref={vid} controls onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} src={`${url}/DASH_1080.mp4`}>
+                This video is not supported by your browser.
+            </video>
+            <video ref={aud} controls autoPlay={() => playing ? true : false} src={`${url}/DASH_audio.mp4`}>
+                This video is not supported by your browser.
+            </video>
+            <h1 style={{'color': 'white'}}>{playing.toString()}</h1>
         </div>
     );
 }
