@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import { useDispatch } from "react-redux";
 import Discussion from "../discussion/Discussion";
+import VideoPlayer from "../video/VideoPlayer";
 import './Post.css';
 
 export default function Post({data, key}) {
@@ -14,11 +14,6 @@ export default function Post({data, key}) {
     let media = data.post_hint === 'image' && data.url;
     let permalink = data.permalink;
     let selftext = data.selftext;
-    let video = data.is_video ? `${data.url}/DASH_1080.mp4` : null;       // to do: handle media edge cases, especially video
-
-    // fallback_url: "https://v.redd.it/0rditq5l49g81/DASH_1080.mp4?source=fallback"
-    // url: "https://v.redd.it/0rditq5l49g81"
-    // id: "sm2wym"
 
     const limit = 300;
     const [body, setBody] = useState(selftext);
@@ -75,7 +70,7 @@ export default function Post({data, key}) {
         if (data.crosspost_parent_list[0].is_video) {
             return (
                 <>
-                <video controls src={data.crosspost_parent_list[0].media.reddit_video.fallback_url}>This video is not supported by your browser.</video>
+                <VideoPlayer data={data} src={data.crosspost_parent_list[0].url} />
                 <p className="crosspost-from">Crosspost from {data.crosspost_parent_list[0].subreddit_name_prefixed}</p>
                 </>
             );
@@ -90,6 +85,10 @@ export default function Post({data, key}) {
             return;
         }
     }
+
+    // Render function below:
+    // Each is preceded by a conditional so the program does not throw an error
+    // before the fetch requests' promises are fulfilled.
     
     return (
         <>
@@ -99,23 +98,17 @@ export default function Post({data, key}) {
                 <a className="title" href={`https://reddit.com${permalink}`}>{title}</a>
             : <p>[untitled]</p>}
 
-            {media ? <img alt={title} src={media} /> : ''}
-            {data.crosspost_parent_list ? handleCrosspost() : ''}
+            {media ? <img alt={title} src={media} /> : null}
+
+            {data.crosspost_parent_list ? handleCrosspost() : null}
 
             {data.gallery_data ?
-                <p>View the gallery of photos corresponding to this post <a href={data.url}>here</a>.</p>
+                <p className="gallery-statement">View the gallery of photos corresponding to this post <a href={data.url}>here</a>.</p>
             : null}
 
-            {video ?
-                <video
-                    controls
-                    poster={data.thumbnail}
-                    preload="auto"
-                    src={video}>
-                    
-                    Your video is not supported by the browser.
-                </video>
-            : ''}
+            {data.is_video ?
+                <VideoPlayer data={data} />
+            : null}
 
             {body ?
                 <p onMouseOver={handleHover} onMouseOut={handleMouseOut}>{body}</p>

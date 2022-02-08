@@ -64,6 +64,19 @@ img, video {
     color: rgb(97, 49, 95);
 }
 
+.gallery-statement {
+    color: rgb(228, 180, 226);
+}
+
+.gallery-statement a {
+    color: white;
+    text-decoration: none;
+}
+
+.gallery-statement a:active {
+    color:rgb(97, 49, 95);
+}
+
 .num-comments {
     display: inline-flex;
     background-color: #7196be;
@@ -78,6 +91,20 @@ img, video {
 
 .crosspost-from {
     color:rgb(228, 180, 226);
+}
+
+/* Video player */
+
+.video-player {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#post-audio {
+    position: relative;
+    height: 3.5rem;
+    width: 60%;
 }
 
 /* Handles comment styles on toggle */
