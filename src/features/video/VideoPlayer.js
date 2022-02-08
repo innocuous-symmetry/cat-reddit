@@ -10,9 +10,15 @@ export default function VideoPlayer({data, src}) {
     
     const crossPostSrc = src;
 
-    let url = crossPostSrc ? crossPostSrc :             // sets video source according to applicable
-        (data.url ? data.url : null);                   // location within reddit response
+    let url;                      // contains video source, routed accordingly by logic below
 
+    if (crossPostSrc) {
+        url = crossPostSrc;
+    } else if (data.url) {
+        url = data.url;
+    } else {
+        url = null;
+    }
 
     useEffect(() => {                                       // checks the endpoint where audio may be found
         let checking = true;                                // if the fetch request throws an error, audio is set to null;
