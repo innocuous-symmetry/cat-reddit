@@ -10,14 +10,14 @@ export default function VideoPlayer({data, src}) {
     
     const crossPostSrc = src;
 
-    let url;                      // contains video source, routed accordingly by logic below
+    let url;        // contains video source, routed accordingly by logic below
 
     if (crossPostSrc) {
-        url = crossPostSrc;
+        url = crossPostSrc;         // ... for crossposts
     } else if (data.url) {
-        url = data.url;
-    } else {
-        url = null;
+        url = data.url;             // ... for local posts, where the url
+    } else {                        // can be accessed at data.url
+        url = null;                 // otherwise, is null
     }
 
     useEffect(() => {                                       // checks the endpoint where audio may be found
