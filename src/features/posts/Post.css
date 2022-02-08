@@ -97,10 +97,14 @@ img, video {
 
 .video-player {
     display: inline-flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.post-audio, .post-video {
-    position: absolute;
+#post-audio {
+    position: relative;
+    height: 3.5rem;
+    width: 60%;
 }
 
 /* Handles comment styles on toggle */
