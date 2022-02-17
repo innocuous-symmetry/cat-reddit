@@ -4,14 +4,14 @@ import { Provider } from 'react-redux';
 import { store } from './app/store';
 import App from './App';
 
-test('renders text', () => {
+test('renders a title', () => {
   const { getByText } = render(
     <Provider store={store}>
       <App />
     </Provider>
   );
 
-  expect(getByText(/Stuff/)).toBeInTheDocument();
+  expect(getAllByText(/cat/)).toBeInTheDocument();
 });
 
 test('store is not empty or falsy', () => {

@@ -99,6 +99,7 @@ img, video {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
+    max-width: 60%;
 }
 
 #post-audio {

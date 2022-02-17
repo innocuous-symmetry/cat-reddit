@@ -95,7 +95,9 @@ export default function Post({data, key}) {
         <div className="post-body" key={key}>
 
             {title ?
-                <a className="title" href={`https://reddit.com${permalink}`}>{title}</a>
+            
+            <a className="title" href={`https://reddit.com${permalink}`}>{title}</a>
+            
             : <p>[untitled]</p>}
 
             {media ? <img alt={title} src={media} /> : null}
