@@ -91,7 +91,6 @@ export default function Post({data, key}) {
     // before the fetch requests' promises are fulfilled.
     
     return (
-        <>
         <div className="post-body" key={key}>
 
             {title ?
@@ -131,8 +130,6 @@ export default function Post({data, key}) {
             <div className={commentStyle}>
                 <Discussion permalink={permalink} isVisible={visible} />
             </div>
-
         </div>
-        </>
     );
 }

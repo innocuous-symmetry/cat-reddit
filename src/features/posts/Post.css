@@ -3,7 +3,8 @@
 .post-body {
     display: inline-flex;
     flex-direction: column;
-    width: 75%;
+    align-items: center;
+    width: 85%;
     padding: 1rem 2rem;
     border-radius: 10px;
     background-color: rgb(29, 4, 39);
@@ -36,6 +37,7 @@ img, video {
 
 .post-metadata {
     display: inline-flex;
+    width: 90%;
     margin-top: 1rem;
     padding-top: 0.5rem;
     border-top: 1px solid gray;
