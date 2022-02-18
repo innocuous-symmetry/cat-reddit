@@ -28,7 +28,7 @@
 
 img, video {
     max-height: 45rem;
-    max-width: 75%;
+    max-width: 95%;
     object-fit: contain;
 }
 
@@ -100,7 +100,7 @@ img, video {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    max-width: 60%;
+    max-width: 80%;
 }
 
 #post-audio {
