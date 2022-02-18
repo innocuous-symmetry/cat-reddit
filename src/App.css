@@ -126,18 +126,13 @@
 
 /* Feed */
 
-.content-container {
-  display: inline-flex;
-  position: relative;
-  top: 5rem;
-  flex-direction: row;
-}
-
 .feed {
   display: inline-flex;
   flex-direction: column;
+  position: relative;
   align-items: center;
   width: 90vw;
+  top: 5rem;
 }
 
 /* Page handling */
