@@ -6,6 +6,7 @@ export default function VideoPlayer({data, src}) {
     
     const [playing, setPlaying] = useState(false);      // handles play/pause logic
     const [audio, setAudio] = useState(null);
+    const [video, setVideo] = useState(null);
     
     const crossPostSrc = src;
 
@@ -36,18 +37,34 @@ export default function VideoPlayer({data, src}) {
             }
         }
 
+        const checkForVideo = async(source) => {
+            try {
+                await fetch(source)
+                .then((response) => {
+                    if (response.status > 400) {
+                        setVideo(null);
+                    } else {
+                        setVideo(source);
+                    }
+                });
+            } catch(e) {
+                console.log(e);
+            }
+        }
+
         if (checking) {
             checkForAudio();
+            checkForVideo(data.media.reddit_video.fallback_url);
             checking = false;
         }
 
         return () => {
             checking = false;
         }
-    }, [url, audio]);
+    }, [url, video, data, audio]);
 
     useEffect(() => {                    // this section handles simultaneous playback of audio and video
-        if (!audio) {
+        if (!audio || !video) {
             return;
         }
 
@@ -57,14 +74,17 @@ export default function VideoPlayer({data, src}) {
         } else if (!playing) {
             vid.current.pause();
         }
-    }, [playing, audio, aud, vid]);
+    }, [playing, video, audio, aud, vid]);
 
     return (
+        <>
+        {!video ? null :
         <div className="video-player">
             {
                 !audio ? 
 
                 <>
+
                 <video id="post-video-no-audio" controls src={url}>
                     This video is not supported by your browser.
                 </video>
@@ -82,5 +102,7 @@ export default function VideoPlayer({data, src}) {
                 </>
             }
         </div>
+        }
+        </>
     );
 }
