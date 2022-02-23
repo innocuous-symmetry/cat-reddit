@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { fetchBySub, /* selectPosts */ } from "./postsSlice";
 import { selectAllSubs } from "../reddit/redditSlice";
 import { useSelector, useDispatch } from "react-redux";
-// import { updatePosts } from "./postsSlice";
 import { v4 } from "uuid";
 import Post from "./Post";
 
@@ -15,7 +14,6 @@ export default function Feed() {
     const [currentPage, setCurrentPage] = useState(0);          // Determines current feed page; corresponds to index of feedPage array
     const dispatch = useDispatch();
 
-    // const posts = useSelector(selectPosts);
     const subs = useSelector(selectAllSubs);                    // Selects subreddits from redditSlice
     
     useEffect(() => {                                // this useEffect loop pulls the endpoints from the selected subreddits and stores them as an array in "endpoints"
@@ -82,7 +80,7 @@ export default function Feed() {
 
                 let sortedPosts = extractedPosts.sort(comparePosts);        // implements sorting function
 
-                console.log(sortedPosts);
+                // console.log(sortedPosts);
                 
                 let newFeed = sortedPosts.map((post) => {
                     return (
@@ -93,7 +91,6 @@ export default function Feed() {
                     )
                 })
                 
-                // dispatch(updatePosts(newFeed));    // stores current feed in state of postsSlice
                 setFeed(newFeed);
             }
 
