@@ -16,7 +16,7 @@ export default function VideoPlayer({data, src}) {
         url = crossPostSrc;
     } else if (data.media.reddit_video.fallback_url) {
         url = data.media.reddit_video.fallback_url;
-    } else {                        
+    } else {
         url = null;
     }
 
@@ -54,18 +54,14 @@ export default function VideoPlayer({data, src}) {
 
         if (checking) {
             checkForAudio();
-            checkForVideo(data.media.reddit_video.fallback_url);
+            checkForVideo(url);
             checking = false;
         }
 
         return () => {
             checking = false;
         }
-<<<<<<< HEAD
-    }, [url, data, audio]);
-=======
     }, [url, video, data, audio]);
->>>>>>> origin/master
 
     useEffect(() => {                    // this section handles simultaneous playback of audio and video
         if (!audio || !video) {
@@ -88,11 +84,7 @@ export default function VideoPlayer({data, src}) {
                 !audio ? 
 
                 <>
-<<<<<<< HEAD
-                <video id="post-video-no-audio" controls src={url}>
-=======
-                <video id="post-video-no-audio" ref={vidControls} controls src={video}>
->>>>>>> origin/master
+                <video id="post-video-no-audio" controls src={video}>
                     This video is not supported by your browser.
                 </video>
                 </>
@@ -100,11 +92,7 @@ export default function VideoPlayer({data, src}) {
                 : 
 
                 <>
-<<<<<<< HEAD
-                <video id="post-video" ref={vid} autoPlay={playing ? true : false} src={url ? url : null}>
-=======
                 <video id="post-video" ref={vid} autoPlay={playing ? true : false} src={video}>
->>>>>>> origin/master
                     This video is not supported by your browser.
                 </video>
                 <video id="post-audio" ref={aud} controls onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} src={audio}>
