@@ -79,8 +79,6 @@ export default function Feed() {
                 }
 
                 let sortedPosts = extractedPosts.sort(comparePosts);        // implements sorting function
-
-                // console.log(sortedPosts);
                 
                 let newFeed = sortedPosts.map((post) => {
                     return (
@@ -155,27 +153,29 @@ export default function Feed() {
     }
 
     return (
-        <>
-        {feedPages ? 
+        <div className="feed">
 
-        <div className="page-handling" id="top-page-handling">
-            <button className="decrement" onClick={handleDecrement}>-</button>
-            <p>Page {currentPage + 1} of {feedPages.length ? (feedPages.length + 1) : 'unknown'}</p>
-            <button className="increment" onClick={handleIncrement}>+</button>
+            {feedPages ? 
+
+            <div className="page-handling" id="top-page-handling">
+                <button className="decrement" onClick={handleDecrement}>-</button>
+                <p>Page {currentPage + 1} of {feedPages.length ? (feedPages.length + 1) : 'unknown'}</p>
+                <button className="increment" onClick={handleIncrement}>+</button>
+            </div>
+
+            : null }
+
+            {feedPages ? feedPages[currentPage] : <h1 className="loading-message">Loading cats for you...</h1>}
+            {feedPages ? 
+
+            <div className="page-handling" id="bottom-page-handling">
+                <button className="decrement" onClick={handleDecrement}>-</button>
+                <p>Page {currentPage + 1} of {feedPages.length ? (feedPages.length + 1) : 'unknown'}</p>
+                <button className="increment" onClick={handleIncrement}>+</button>
+            </div>
+
+            : null }
+            
         </div>
-
-        : null }
-
-        {feedPages ? feedPages[currentPage] : <h1 className="loading-message">Loading cats for you...</h1>}
-        {feedPages ? 
-
-        <div className="page-handling" id="bottom-page-handling">
-            <button className="decrement" onClick={handleDecrement}>-</button>
-            <p>Page {currentPage + 1} of {feedPages.length ? (feedPages.length + 1) : 'unknown'}</p>
-            <button className="increment" onClick={handleIncrement}>+</button>
-        </div>
-
-        : null }
-        </>
     );
 }
