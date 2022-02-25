@@ -44,7 +44,7 @@ export default function VideoPlayer({data, src}) {
         return () => {
             checking = false;
         }
-    }, [url, audio]);
+    }, [url, data, audio]);
 
     useEffect(() => {                    // this section handles simultaneous playback of audio and video
         if (!audio) {
