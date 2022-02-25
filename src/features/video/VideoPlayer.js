@@ -6,6 +6,7 @@ export default function VideoPlayer({data, src}) {
     
     const [playing, setPlaying] = useState(false);      // handles play/pause logic
     const [audio, setAudio] = useState(null);
+    const [video, setVideo] = useState(null);
     
     const crossPostSrc = src;
 
@@ -36,18 +37,38 @@ export default function VideoPlayer({data, src}) {
             }
         }
 
+        const checkForVideo = async(source) => {
+            try {
+                await fetch(source)
+                .then((response) => {
+                    if (response.status > 400) {
+                        setVideo(null);
+                    } else {
+                        setVideo(source);
+                    }
+                });
+            } catch(e) {
+                console.log(e);
+            }
+        }
+
         if (checking) {
             checkForAudio();
+            checkForVideo(data.media.reddit_video.fallback_url);
             checking = false;
         }
 
         return () => {
             checking = false;
         }
+<<<<<<< HEAD
     }, [url, data, audio]);
+=======
+    }, [url, video, data, audio]);
+>>>>>>> origin/master
 
     useEffect(() => {                    // this section handles simultaneous playback of audio and video
-        if (!audio) {
+        if (!audio || !video) {
             return;
         }
 
@@ -57,15 +78,21 @@ export default function VideoPlayer({data, src}) {
         } else if (!playing) {
             vid.current.pause();
         }
-    }, [playing, audio, aud, vid]);
+    }, [playing, video, audio, aud, vid]);
 
     return (
+        <>
+        {!video ? null :
         <div className="video-player">
             {
                 !audio ? 
 
                 <>
+<<<<<<< HEAD
                 <video id="post-video-no-audio" controls src={url}>
+=======
+                <video id="post-video-no-audio" ref={vidControls} controls src={video}>
+>>>>>>> origin/master
                     This video is not supported by your browser.
                 </video>
                 </>
@@ -73,7 +100,11 @@ export default function VideoPlayer({data, src}) {
                 : 
 
                 <>
+<<<<<<< HEAD
                 <video id="post-video" ref={vid} autoPlay={playing ? true : false} src={url ? url : null}>
+=======
+                <video id="post-video" ref={vid} autoPlay={playing ? true : false} src={video}>
+>>>>>>> origin/master
                     This video is not supported by your browser.
                 </video>
                 <video id="post-audio" ref={aud} controls onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} src={audio}>
@@ -82,5 +113,7 @@ export default function VideoPlayer({data, src}) {
                 </>
             }
         </div>
+        }
+        </>
     );
 }
