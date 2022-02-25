@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
 export default function VideoPlayer({data, src}) {
-    const vidControls = useRef();
     const vid = useRef();
     const aud = useRef();        // identifies location of video/audio in DOM
     
@@ -14,24 +13,23 @@ export default function VideoPlayer({data, src}) {
     let url;        // contains video source, routed accordingly by logic below
 
     if (crossPostSrc) {
-        url = crossPostSrc;         // ... for crossposts
-    } else if (data.url) {
-        url = data.url;             // ... for local posts, where the url
-    } else {                        // can be accessed at data.url
-        url = null;                 // otherwise, is null
+        url = crossPostSrc;
+    } else if (data.media.reddit_video.fallback_url) {
+        url = data.media.reddit_video.fallback_url;
+    } else {
+        url = null;
     }
 
     useEffect(() => {                                       // checks the endpoint where audio may be found
         let checking = true;                                // if the fetch request throws an error, audio is set to null;
         const checkForAudio = async() => {                  // otherwise, audio is set to the endpoint, which is evaluated
             try {                                           // below as truthy, and rendered in the page
-                await fetch(`${url}/DASH_audio.mp4`)
+                await fetch(`${data.url}/DASH_audio.mp4`)
                 .then((response) => {
-                    let status = response.status;
-                    if (status > 400) {
+                    if (!response.ok) {
                         setAudio(null);
                     } else {
-                        setAudio(`${url}/DASH_audio.mp4`);
+                        setAudio(`${data.url}/DASH_audio.mp4`);
                     }
                 });
             } catch(e) {
@@ -56,7 +54,7 @@ export default function VideoPlayer({data, src}) {
 
         if (checking) {
             checkForAudio();
-            checkForVideo(data.media.reddit_video.fallback_url);
+            checkForVideo(url);
             checking = false;
         }
 
@@ -70,7 +68,7 @@ export default function VideoPlayer({data, src}) {
             return;
         }
 
-        if (playing) {
+        if (audio && playing) {
             vid.current.play();                                         // synchronizes play/pause between two components
             vid.current.currentTime = aud.current.currentTime;          // according to section of state
         } else if (!playing) {
@@ -82,17 +80,16 @@ export default function VideoPlayer({data, src}) {
         <>
         {!video ? null :
         <div className="video-player">
-
             {
                 !audio ? 
 
                 <>
-                <video id="post-video-no-audio" ref={vidControls} controls src={video}>
+                <video id="post-video-no-audio" controls src={video}>
                     This video is not supported by your browser.
                 </video>
                 </>
 
-                :
+                : 
 
                 <>
                 <video id="post-video" ref={vid} autoPlay={playing ? true : false} src={video}>
@@ -102,7 +99,6 @@ export default function VideoPlayer({data, src}) {
                     This video is not supported by your browser.
                 </video>
                 </>
-
             }
         </div>
         }

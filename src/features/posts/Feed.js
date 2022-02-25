@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { fetchBySub, /* selectPosts */ } from "./postsSlice";
 import { selectAllSubs } from "../reddit/redditSlice";
 import { useSelector, useDispatch } from "react-redux";
-// import { updatePosts } from "./postsSlice";
 import { v4 } from "uuid";
 import Post from "./Post";
 
@@ -15,7 +14,6 @@ export default function Feed() {
     const [currentPage, setCurrentPage] = useState(0);          // Determines current feed page; corresponds to index of feedPage array
     const dispatch = useDispatch();
 
-    // const posts = useSelector(selectPosts);
     const subs = useSelector(selectAllSubs);                    // Selects subreddits from redditSlice
     
     useEffect(() => {                                // this useEffect loop pulls the endpoints from the selected subreddits and stores them as an array in "endpoints"
@@ -81,8 +79,6 @@ export default function Feed() {
                 }
 
                 let sortedPosts = extractedPosts.sort(comparePosts);        // implements sorting function
-
-                console.log(sortedPosts);
                 
                 let newFeed = sortedPosts.map((post) => {
                     return (
@@ -93,7 +89,6 @@ export default function Feed() {
                     )
                 })
                 
-                // dispatch(updatePosts(newFeed));    // stores current feed in state of postsSlice
                 setFeed(newFeed);
             }
 
@@ -158,27 +153,29 @@ export default function Feed() {
     }
 
     return (
-        <>
-        {feedPages ? 
+        <div className="feed">
 
-        <div className="page-handling" id="top-page-handling">
-            <button className="decrement" onClick={handleDecrement}>-</button>
-            <p>Page {currentPage + 1} of {feedPages.length ? (feedPages.length + 1) : 'unknown'}</p>
-            <button className="increment" onClick={handleIncrement}>+</button>
+            {feedPages ? 
+
+            <div className="page-handling" id="top-page-handling">
+                <button className="decrement" onClick={handleDecrement}>-</button>
+                <p>Page {currentPage + 1} of {feedPages.length ? (feedPages.length + 1) : 'unknown'}</p>
+                <button className="increment" onClick={handleIncrement}>+</button>
+            </div>
+
+            : null }
+
+            {feedPages ? feedPages[currentPage] : <h1 className="loading-message">Loading cats for you...</h1>}
+            {feedPages ? 
+
+            <div className="page-handling" id="bottom-page-handling">
+                <button className="decrement" onClick={handleDecrement}>-</button>
+                <p>Page {currentPage + 1} of {feedPages.length ? (feedPages.length + 1) : 'unknown'}</p>
+                <button className="increment" onClick={handleIncrement}>+</button>
+            </div>
+
+            : null }
+            
         </div>
-
-        : null }
-
-        {feedPages ? feedPages[currentPage] : <h1 className="loading-message">Loading cats for you...</h1>}
-        {feedPages ? 
-
-        <div className="page-handling" id="bottom-page-handling">
-            <button className="decrement" onClick={handleDecrement}>-</button>
-            <p>Page {currentPage + 1} of {feedPages.length ? (feedPages.length + 1) : 'unknown'}</p>
-            <button className="increment" onClick={handleIncrement}>+</button>
-        </div>
-
-        : null }
-        </>
     );
 }

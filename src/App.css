@@ -128,9 +128,11 @@
 
 .feed {
   display: inline-flex;
+  position: relative;
   flex-direction: column;
   position: relative;
   align-items: center;
+  top: 5rem;
   width: 90vw;
   top: 5rem;
 }
